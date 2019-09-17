@@ -11,8 +11,8 @@ int main(){
   pid = fork(); 
   if (pid == 0){ 
     printf("child process, pid = %u\n",getpid()); 
-    char * argv_list[] = {"ls","-lart","/home",NULL}; 
-    execv("ls",argv_list); 
+    char * argv_list[] = {NULL}; 
+    execv("myfork",argv_list); 
     exit(0); 
   }
   else{
