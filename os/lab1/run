@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc myfork.c -o myfork
-./myfork
-#gcc myexec.c -o myexec
-#./myexec
+#gcc myfork.c -o myfork
+#./myfork
+gcc myexec.c -o myexec
+./myexec
