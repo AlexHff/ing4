@@ -13,6 +13,7 @@ int main(){
     printf("child process, pid = %u\n",getpid()); 
     char * argv_list[] = {NULL}; 
     execv("helloworld",argv_list); 
+    printf("child process, pid = %u\n",getpid()); 
   }
   else{
     printf("parent process, pid = %u\n",getpid()); 
