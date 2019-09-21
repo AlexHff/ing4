@@ -1,7 +1,7 @@
 -- Drop the table if it already exists
-DROP TABLE CoursSuivi;
-DROP TABLE Cours;
-DROP TABLE Eleve;
+DROP TABLE IF EXISTS CoursSuivi;
+DROP TABLE IF EXISTS Cours;
+DROP TABLE IF EXISTS Eleve;
 
 -- Eleve ([id], nom, prenom, annee)
 CREATE TABLE Eleve
@@ -78,5 +78,41 @@ INSERT INTO Eleve
 )
 VALUES
 (
-    123456788, 'MONTAGNO', 'Gilberto'
+    123456787, 'LEBOSS', 'Bob'
 );
+
+-- Update rows in table 'Cours'
+UPDATE Cours
+SET
+    volumeHoraire = 27
+WHERE
+    nom = 'Base de donnees';
+
+-- Update rows in table 'Cours'
+UPDATE Cours
+SET
+    nom = 'Base de donnees avancees'
+WHERE
+    nom = 'Base de donnees';
+
+-- Insert rows into table 'Eleve'
+INSERT INTO Eleve
+(
+    id, nom, prenom, annee
+)
+VALUES
+(
+    234567891, 'WENGER', 'Friedrich', 1
+);
+-- #1062 - Duplicata du champ '234567891' pour la clef 'PRIMARY'
+
+-- Insert rows into table 'Eleve'
+INSERT INTO Eleve
+(
+    id, nom, prenom, annee
+)
+VALUES
+(
+    NULL, 'WENGER', 'Friedrich', 1
+);
+-- #1048 - Le champ 'id' ne peut être vide (null)
