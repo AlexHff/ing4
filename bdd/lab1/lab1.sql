@@ -116,3 +116,64 @@ VALUES
     NULL, 'WENGER', 'Friedrich', 1
 );
 -- #1048 - Le champ 'id' ne peut être vide (null)
+
+ALTER TABLE Eleve DROP PRIMARY KEY;
+
+ALTER TABLE Eleve CHANGE id id INT NULL;
+
+ALTER TABLE Eleve ADD PRIMARY KEY(id);
+--  #1062 - Duplicata du champ '234567891' pour la clef 'PRIMARY'
+
+-- Insert rows into table 'CoursSuivi'
+INSERT INTO CoursSuivi
+(
+    idEleve, idCours, nomEleve, prenomEleve, nomCours, note
+)
+VALUES
+(
+    NULL, 40013, 'WENGER', 'Friedrich', 'Base de donnees avancees', 19
+);
+-- #1048 - Le champ 'idEleve' ne peut être vide (null)
+
+-- Insert rows into table 'CoursSuivi'
+INSERT INTO CoursSuivi
+(
+    idEleve, idCours, nomEleve, prenomEleve, nomCours, note
+)
+VALUES
+(
+    29521651, 40013, 'WENGER', 'Friedrich', 'Base de donnees avancees', 19
+);
+-- #1452 - Cannot add or update a child row: a foreign key constraint fails (`hello`.`CoursSuivi`, CONSTRAINT `CoursSuivi_ibfk_1` FOREIGN KEY (`idEleve`) REFERENCES `Eleve` (`id`))
+
+ALTER TABLE CoursSuivi DROP FOREIGN KEY idEleve;
+ALTER TABLE CoursSuivi DROP FOREIGN KEY idCours;
+
+-- Insert rows into table 'CoursSuivi'
+INSERT INTO CoursSuivi
+(
+    idEleve, idCours, nomEleve, prenomEleve, nomCours, note
+)
+VALUES
+(
+    NULL, 40013, 'WENGER', 'Friedrich', 'Base de donnees avancees', 19
+);
+-- #1048 - Le champ 'idEleve' ne peut être vide (null)
+-- Le champ idEleve est toujours clé primaire de la table CoursSuivi
+
+-- Insert rows into table 'CoursSuivi'
+INSERT INTO CoursSuivi
+(
+    idEleve, idCours, nomEleve, prenomEleve, nomCours, note
+)
+VALUES
+(
+    29521651, 40013, 'WENGER', 'Friedrich', 'Base de donnees avancees', 19
+);
+
+ALTER TABLE CoursSuivi ADD FOREIGN KEY (idEleve) REFERENCES Eleve(id);
+-- #1452 - Cannot add or update a child row: a foreign key constraint fails (`hello`.`#sql-6315_3fc`, CONSTRAINT `#sql-6315_3fc_ibfk_1` FOREIGN KEY (`idEleve`) REFERENCES `Eleve` (`id`))
+
+DELETE FROM CoursSuivi WHERE CoursSuivi.idEleve = 29521651 AND CoursSuivi.idCours = 40013
+
+ALTER TABLE CoursSuivi ADD FOREIGN KEY (idCours) REFERENCES Cours(id);
