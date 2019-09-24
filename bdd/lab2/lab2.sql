@@ -93,3 +93,21 @@ WHERE DNAME = 'ACCOUNTING' AND HIRED = (
 -- 1. Find the employees with the highest salary (2 methods).
 SELECT * FROM EMP
 WHERE SAL = (SELECT MAX(SAL) FROM EMP);
+
+-- 1. For each employee who did at least one mission, display their ID and the number of
+-- missions they did.
+SELECT EID, COUNT(MID) FROM EMP NATURAL JOIN MISSION
+GROUP BY EID;
+
+-- 2. For each employee who did at least one mission, display their name and the number of
+-- missions they did.
+SELECT ENAME, COUNT(MID) FROM EMP NATURAL JOIN MISSION
+GROUP BY EID;
+
+-- 3. For each employee listed in EMP, display their name and the number of missions they
+-- did.
+SELECT ENAME, COUNT(MID) FROM EMP LEFT OUTER JOIN MISSION ON EMP.EID = MISSION.EID
+GROUP BY EMP.EID;
+
+-- 4. Find the number of employees each manager (i.e. an employee listed in the MGR
+-- column) manages, along with the manager’s name.
