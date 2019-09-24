@@ -59,6 +59,7 @@ FROM EMP AS EMP1 INNER JOIN EMP AS EMP2 ON EMP2.EID = EMP1.MGR;
 -- 5. Find the name of the employees who have the same manager as Allen.
 SELECT ENAME FROM EMP
 WHERE MGR = (SELECT MGR FROM EMP WHERE ENAME = 'ALLEN');
+-- NO JOIN HERE
 
 -- 6. Find the name and hire date of the employees who were hired before their manager; also
 -- display the manager’s hire date.
@@ -68,8 +69,27 @@ WHERE EMP1.HIRED < EMP2.HIRED;
 
 -- 7. Find the name of the employees in the Sales department who were hired the same day as an
 -- employee in the Research department.
-SELECT EMP1.ENAME FROM (SELECT * FROM EMP NATURAL JOIN DEPT WHERE DNAME = 'SALES') AS EMP1,
+SELECT EMP1.ENAME FROM (SELECT * FROM EMP NATURAL JOIN DEPT WHERE DNAME = 'SALES') AS EMP1 INNER JOIN
 (SELECT * FROM EMP NATURAL JOIN DEPT WHERE DNAME = 'RESEARCH') AS EMP2
-WHERE EMP1.HIRED = EMP2.HIRED;
+ON EMP1.HIRED = EMP2.HIRED;
 
 -- 8. Find the departments that do not have any employee.
+SELECT DNAME FROM DEPT LEFT OUTER JOIN EMP ON DEPT.DID = EMP.DID
+WHERE EID IS NULL;
+
+-- 9. Find the name of the employees with the highest salary.
+SELECT ENAME FROM EMP
+WHERE SAL = (SELECT MAX(SAL) FROM EMP);
+-- NO JOIN HERE
+
+-- 10. Find the name of the employees who were hired before all the employees of the Accounting
+-- department.
+SELECT ENAME FROM EMP NATURAL JOIN DEPT
+WHERE DNAME = 'ACCOUNTING' AND HIRED = (
+    SELECT MIN(HIRED) FROM EMP NATURAL JOIN DEPT
+    WHERE DNAME = 'ACCOUNTING'
+);
+
+-- 1. Find the employees with the highest salary (2 methods).
+SELECT * FROM EMP
+WHERE SAL = (SELECT MAX(SAL) FROM EMP);
