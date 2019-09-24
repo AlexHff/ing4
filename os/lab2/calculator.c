@@ -24,6 +24,7 @@ int main(int argc, char* argv[])
     ptr[5] = ptr[2] + ptr[3];
     res = ptr[4] - ptr[5];
     printf("%d\n", res);
+    shmctl(ShmID, IPC_RMID, NULL);
   }
   return 0;
 }
