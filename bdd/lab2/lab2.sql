@@ -5,10 +5,12 @@ WHERE COMM IS NOT NULL;
 -- 2. Find the number of employees whose commission is specified (2 methods).
 SELECT COUNT(*) FROM EMP
 WHERE COMM IS NOT NULL;
+SELECT COUNT(COMM) FROM EMP;
 
 -- 3. Find the number of employees whose commission is not specified (2 methods).
 SELECT COUNT(*) FROM EMP
 WHERE COMM IS NULL;
+SELECT COUNT(*) - COUNT(COMM) FROM EMP;
 
 -- 4. Find the lowest, average and highest commission over all the employees (nulls ignored).
 SELECT MIN(COMM) FROM EMP;
@@ -78,9 +80,8 @@ SELECT DNAME FROM DEPT LEFT OUTER JOIN EMP ON DEPT.DID = EMP.DID
 WHERE EID IS NULL;
 
 -- 9. Find the name of the employees with the highest salary.
-SELECT ENAME FROM EMP
-WHERE SAL = (SELECT MAX(SAL) FROM EMP);
--- NO JOIN HERE
+SELECT E1.ENAME, E1.SAL, E2.ENAME, E2.SAL FROM EMP E1 LEFT OUTER JOIN EMP E2 ON E1.SAL < E2.SAL
+WHERE E2.EID IS NULL
 
 -- 10. Find the name of the employees who were hired before all the employees of the Accounting
 -- department.
@@ -94,20 +95,55 @@ WHERE DNAME = 'ACCOUNTING' AND HIRED = (
 SELECT * FROM EMP
 WHERE SAL = (SELECT MAX(SAL) FROM EMP);
 
+-- 2. Find the employees who earn less than all managers (2 methods).
+SELECT * FROM EMP
+WHERE SAL < (SELECT MIN(SAL) FROM EMP WHERE JOB = 'MANAGER');
+
+-- 3. Find the employees who earn more than some analyst (2 methods).
+SELECT * FROM EMP
+WHERE SAL > (SELECT MIN(SAL) FROM EMP WHERE JOB = 'ANALYST');
+
+-- 4. Find the employees who work in the Research or Sales departments.
+SELECT * FROM EMP
+WHERE DID = (SELECT DID FROM DEPT WHERE DNAME = 'RESEARCH')
+OR DID = (SELECT DID FROM DEPT WHERE DNAME = 'SALES');
+
+-- 5. Find the departments without any employee (3 methods).
+SELECT * FROM DEPT
+WHERE DID NOT IN (
+    SELECT DID FROM EMP WHERE DID IS NOT NULL
+);
+SELECT * FROM DEPT
+WHERE (SELECT COUNT(*) FROM EMP WHERE DID = DEPT.DID) = 0;
+SELECT * FROM DEPT
+WHERE EXISTS (SELECT * FROM EMP WHERE DID = DEPT.DID);
+
+-- 6. Find the departments with at least 3 employees
+SELECT * FROM DEPT
+WHERE (SELECT COUNT(*) FROM EMP WHERE DID = DEPT.DID) >= 3;
+
+-- 7. Find the name of the employees who did a mission.
+SELECT ENAME FROM EMP
+WHERE EXISTS (SELECT * FROM MISSION WHERE EID = EMP.EID);
+
+-- 8. Find the employees who did a mission in the city they work in.
+
 -- 1. For each employee who did at least one mission, display their ID and the number of
 -- missions they did.
-SELECT EID, COUNT(MID) FROM EMP NATURAL JOIN MISSION
+SELECT EID, COUNT(MID) FROM MISSION
 GROUP BY EID;
 
 -- 2. For each employee who did at least one mission, display their name and the number of
 -- missions they did.
 SELECT ENAME, COUNT(MID) FROM EMP NATURAL JOIN MISSION
-GROUP BY EID;
+GROUP BY EID, ENAME;
 
 -- 3. For each employee listed in EMP, display their name and the number of missions they
 -- did.
 SELECT ENAME, COUNT(MID) FROM EMP LEFT OUTER JOIN MISSION ON EMP.EID = MISSION.EID
-GROUP BY EMP.EID;
+GROUP BY EMP.EID, EMP.ENAME;
 
 -- 4. Find the number of employees each manager (i.e. an employee listed in the MGR
 -- column) manages, along with the manager’s name.
+SELECT COUNT(*), ENAME FROM EMP
+GROUP BY EID;
