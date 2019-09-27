@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
   int res;
   int shm_id;
   int *ptr;
-  shm_id = shmget(IPC_PRIVATE, 11*sizeof(int), IPC_CREAT | 0666);
+  shm_id = shmget(IPC_PRIVATE, 10*sizeof(int), IPC_CREAT | 0666);
   ptr = (int *) shmat(shm_id, NULL, 0);
   ptr[0] = a;
   ptr[1] = b;
@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
       ptr[8] = ptr[4] + ptr[5];
     }
   } else {
-    wait(NULL);
     ptr[7] = ptr[2] - ptr[3];
+    wait(NULL);
     ptr[9] = ptr[6] * ptr[7];
     res = ptr[9] + ptr[8];
     printf("%d\n", res);
