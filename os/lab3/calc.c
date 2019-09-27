@@ -1,10 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+#include <sys/shm.h>
+#include <sys/times.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/shm.h>
 #include <pthread.h>
+#include <signal.h>
 
 struct arg_struct {
   int arg1;
@@ -25,8 +28,17 @@ int main(int argc, char* argv[])
   int d = 1;
   int e = 5;
   int f = 5;
-  //calc_process(a, b, c, d, e, f);
+  clock_t start_thread, end_thread, start_process, end_process;
+  double cpu_time_thread, cpu_time_process;
+  start_thread = clock();
   calc_thread(a, b, c, d, e, f);
+  end_thread = clock();
+  cpu_time_thread = ((double) (end_thread - start_thread));
+  start_process = clock();
+  calc_process(a, b, c, d, e, f);
+  end_process = clock();
+  cpu_time_process = ((double) (end_process - start_process));
+  printf("%lf, %lf\n", cpu_time_thread, cpu_time_process);
   return 0;
 }
 
@@ -79,8 +91,10 @@ void calc_process(int a, int b, int c, int d, int e, int f) {
   ptr[5] = f;
   if (fork() == 0) {
     ptr[6] = ptr[0] + ptr[1];
+    //kill(getpid(), SIGTERM);
     if (fork() == 0) {
       ptr[8] = ptr[4] + ptr[5];
+    //kill(getpid(), SIGTERM);
     }
   } else {
     ptr[7] = ptr[2] - ptr[3];
