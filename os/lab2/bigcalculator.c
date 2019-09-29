@@ -15,26 +15,32 @@ int main(int argc, char* argv[])
   int e = 5;
   int f = 5;
   int res;
-  int shm_id;
-  int *ptr;
-  shm_id = shmget(IPC_PRIVATE, 10*sizeof(int), IPC_CREAT | 0666);
+  int shm_id, shm_id_flag;
+  int *ptr, *flag;
+  shm_id = shmget(IPC_PRIVATE, 4*sizeof(int), IPC_CREAT | 0666);
+  if (shm_id < 0) {
+    printf("shmget array error\n");
+    exit(1);
+  }
+  shm_id_flag = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT | 0666);
+  if (shm_id_flag < 0) {
+    printf("shmget flag error\n");
+    exit(1);
+  }
   ptr = (int *) shmat(shm_id, NULL, 0);
-  ptr[0] = a;
-  ptr[1] = b;
-  ptr[2] = c;
-  ptr[3] = d;
-  ptr[4] = e;
-  ptr[5] = f;
+  flag = (int *) shmat(shm_id_flag, NULL, 0);
   if (fork() == 0) {
-    ptr[6] = ptr[0] + ptr[1];
+    ptr[0] = a + b;
     if (fork() == 0) {
-      ptr[8] = ptr[4] + ptr[5];
+      ptr[2] = e + f;
+      *flag = 1;
     }
   } else {
-    ptr[7] = ptr[2] - ptr[3];
-    wait(NULL);
-    ptr[9] = ptr[6] * ptr[7];
-    res = ptr[9] + ptr[8];
+    ptr[1] = c - d;
+    while (*flag != 1);
+    //wait(NULL);
+    ptr[3] = ptr[0] * ptr[1];
+    res = ptr[3] + ptr[2];
     printf("%d\n", res);
     shmctl(shm_id, IPC_RMID, NULL);
   }
