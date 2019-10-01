@@ -14,37 +14,49 @@ set session sql_mode = 'ONLY_FULL_GROUP_BY';
 select 'Query 01' as '';
 -- The countries of residence the supplier had to ship products to in 2014
 -- Les pays de résidence où le fournisseur a dû envoyer des produits en 2014
-SELECT DISTINCT residence
-FROM customers NATURAL JOIN orders
-WHERE EXTRACT(YEAR FROM odate) = 2014
-    AND residence IS NOT NULL;
+select distinct residence
+from customers natural join orders
+where extract(year from odate) = 2014
+and residence is not null;
 
 select 'Query 02' as '';
 -- For each known country of origin, its name, the number of products from that country, their lowest price, their highest price
 -- Pour chaque pays d'orgine connu, son nom, le nombre de produits de ce pays, leur plus bas prix, leur plus haut prix
-SELECT origin o,
-    COUNT(origin) products,
-    (SELECT MIN(price)FROM products WHERE origin = o) lowest_price,
-    (SELECT MAX(price) FROM products WHERE origin = o) highest_price
-FROM products
-GROUP BY origin;
+select origin o,
+       count(origin) products,
+       (select min(price) from products where origin = o) lowest_price,
+       (select max(price) from products where origin = o) highest_price
+from products
+group by origin;
 
 select 'Query 03' as '';
 -- The customers who ordered in 2014 all the products (at least) that the customers named 'Smith' ordered in 2013
 -- Les clients ayant commandé en 2014 tous les produits (au moins) commandés par les clients nommés 'Smith' en 2013
-
+select distinct pid
+from customers natural join orders
+where cname = 'Smith'
+and extract(year from odate) = 2013;
 
 select 'Query 04' as '';
 -- For each customer and each product, the customer's name, the product's name, the total amount ordered by the customer for that product,
 -- sorted by customer name (alphabetical order), then by total amount ordered (highest value first), then by product id (ascending order)
--- Par client et par produit, le nom du client, le nom du produit, le montant total de ce produit commandé par le client, 
--- trié par nom de client (ordre alphabétique), puis par montant total commandé (plus grance valeur d'abord), puis par id de produit (croissant)
-
+-- Par client et par produit, le nom du client, le nom du produit,
+-- le montant total de ce produit commandé par le client, 
+-- trié par nom de client (ordre alphabétique), puis par montant total
+-- commandé (plus grance valeur d'abord), puis par id de produit (croissant)
+select cname,
+       pname,
+       sum(quantity) as montant
+from customers natural join orders natural join products
+group by cid, pid, cname, pname
+order by cname, montant desc, pid;
 
 select 'Query 05' as '';
 -- The customers who only ordered products originating from their country
 -- Les clients n'ayant commandé que des produits provenant de leur pays
-
+select distinct cid, cname, residence
+from customers natural join orders natural join products
+where residence = origin;
 
 select 'Query 06' as '';
 -- The customers who ordered only products originating from foreign countries 
@@ -119,5 +131,4 @@ select 'Query 19' as '';
 select 'Query 20' as '';
 -- For all countries listed in tables products or customers, including unknown countries: the name of the country, the number of customers living in this country, the number of products originating from that country
 -- Pour chaque pays listé dans les tables products ou customers, y compris les pays inconnus : le nom du pays, le nombre de clients résidant dans ce pays, le nombre de produits provenant de ce pays 
-
 
