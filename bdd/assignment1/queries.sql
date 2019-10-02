@@ -36,6 +36,7 @@ select distinct pid
 from customers natural join orders
 where cname = 'Smith'
 and extract(year from odate) = 2013;
+-- FAUX
 
 select 'Query 04' as '';
 -- For each customer and each product, the customer's name, the product's name, the total amount ordered by the customer for that product,
@@ -56,31 +57,65 @@ select 'Query 05' as '';
 -- Les clients n'ayant commandé que des produits provenant de leur pays
 select distinct cid, cname, residence
 from customers natural join orders natural join products
-where residence = origin;
+where cid not in (
+    select cid
+    from customers natural join orders natural join products
+    where residence <> origin
+)
+and residence is not null;
 
 select 'Query 06' as '';
 -- The customers who ordered only products originating from foreign countries 
 -- Les clients n'ayant commandé que des produits provenant de pays étrangers
-
+select distinct cid, cname, residence
+from customers natural join orders natural join products
+where cid not in (
+    select cid
+    from customers natural join orders natural join products
+    where residence = origin
+)
+and residence is not null;
 
 select 'Query 07' as '';
 -- The difference between 'USA' residents' per-order average quantity and 'France' residents' (USA - France)
--- La différence entre quantité moyenne par commande des clients résidant aux 'USA' et celle des clients résidant en 'France' (USA - France)
-
+-- La différence entre quantité moyenne par commande des clients résidant
+-- aux 'USA' et celle des clients résidant en 'France' (USA - France)
+select avg(quantity)
+from customers natural join orders natural join products
+where residence = 'USA';
+select avg(quantity)
+from customers natural join orders natural join products
+where residence = 'France';
+-- FAUX
 
 select 'Query 08' as '';
 -- The products ordered throughout 2014, i.e. ordered each month of that year
--- Les produits commandés tout au long de 2014, i.e. commandés chaque mois de cette année
-
+-- Les produits commandés tout au long de 2014,
+-- i.e. commandés chaque mois de cette année
+select distinct pid, pname, price, origin
+from orders natural join products
+where extract(year from odate) = 2014;
 
 select 'Query 09' as '';
 -- The customers who ordered all the products that cost less than $5
 -- Les clients ayant commandé tous les produits de moins de $5
-
+select cid, cname, residence
+from (
+    select cid, cname, residence, count(distinct pid) c
+    from customers natural join orders natural join products
+    where price < 5
+    group by cid, cname, residence
+) t
+where c = (
+    select count(distinct pid)
+    from products
+    where price < 5
+);
 
 select 'Query 10' as '';
 -- The customers who ordered the greatest number of common products. Display 3 columns: cname1, cname2, number of common products, with cname1 < cname2
--- Les clients ayant commandé le grand nombre de produits commums. Afficher 3 colonnes : cname1, cname2, nombre de produits communs, avec cname1 < cname2
+-- Les clients ayant commandé le grand nombre de produits commums. Afficher 3
+-- colonnes : cname1, cname2, nombre de produits communs, avec cname1 < cname2
 
 
 select 'Query 11' as '';
