@@ -121,22 +121,43 @@ select 'Query 10' as '';
 select 'Query 11' as '';
 -- The customers who ordered the largest number of products
 -- Les clients ayant commandé le plus grand nombre de produits
-
+select cid, cname, residence, count(distinct pid)
+from customers natural join orders natural join products
+group by cid, cname, residence;
 
 select 'Query 12' as '';
 -- The products ordered by all the customers living in 'France'
 -- Les produits commandés par tous les clients vivant en 'France'
-
+select distinct pid, pname, price, origin
+from customers natural join orders natural join products
+where residence = 'France';
 
 select 'Query 13' as '';
 -- The customers who live in the same country customers named 'Smith' live in (customers 'Smith' not shown in the result)
--- Les clients résidant dans les mêmes pays que les clients nommés 'Smith' (en excluant les Smith de la liste affichée)
-
+-- Les clients résidant dans les mêmes pays que les clients nommés 'Smith'
+-- (en excluant les Smith de la liste affichée)
+select *
+from customers
+where residence in (select residence from customers where cname = 'Smith')
+and cname <> 'Smith';
 
 select 'Query 14' as '';
 -- The customers who ordered the largest total amount in 2014
 -- Les clients ayant commandé pour le plus grand montant total sur 2014 
-
+select cid, cname, residence
+from (
+	select cid, cname, residence, sum(price*quantity) total
+    from customers natural join orders natural join products
+    where extract(year from odate) = 2014
+    group by cid, cname, residence
+) t1
+where total = (select max(total) from (
+        select cid, cname, residence, sum(price*quantity) total
+        from customers natural join orders natural join products
+        where extract(year from odate) = 2014
+        group by cid, cname, residence
+	) t2
+);
 
 select 'Query 15' as '';
 -- The products with the largest per-order average amount 
