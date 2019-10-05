@@ -167,24 +167,170 @@ select 'Query 15' as '';
 select 'Query 16' as '';
 -- The products ordered by the customers living in 'USA'
 -- Les produits commandés par les clients résidant aux 'USA'
-
+select distinct pid, pname, price, origin
+from customers natural join orders natural join products
+where residence = 'USA';
 
 select 'Query 17' as '';
 -- The pairs of customers who ordered the same product en 2014, and that product. Display 3 columns: cname1, cname2, pname, with cname1 < cname2
--- Les paires de client ayant commandé le même produit en 2014, et ce produit. Afficher 3 colonnes : cname1, cname2, pname, avec cname1 < cname2
+-- Les paires de client ayant commandé le même produit en 2014, et ce produit.
+-- Afficher 3 colonnes : cname1, cname2, pname, avec cname1 < cname2
 
 
 select 'Query 18' as '';
 -- The products whose price is greater than all products from 'India'
 -- Les produits plus chers que tous les produits d'origine 'India'
-
+select distinct *
+from products
+where price > all (
+	select price
+    from products
+    where origin = 'India'
+)
+and origin <> 'India';
 
 select 'Query 19' as '';
 -- The products ordered by the smallest number of customers (products never ordered are excluded)
 -- Les produits commandés par le plus petit nombre de clients (les produits jamais commandés sont exclus)
-
+select pid, pname, price, origin
+from (
+	select pid, pname, price, origin, count(pid) prods
+    from customers natural join orders natural join products
+    group by pid, pname, price, origin
+) t1
+where prods = (
+	select min(prods)
+    from (
+    	select pid, pname, price, origin, count(pid) prods
+        from customers natural join orders natural join products
+        group by pid, pname, price, origin
+    ) t2
+);
 
 select 'Query 20' as '';
 -- For all countries listed in tables products or customers, including unknown countries: the name of the country, the number of customers living in this country, the number of products originating from that country
--- Pour chaque pays listé dans les tables products ou customers, y compris les pays inconnus : le nom du pays, le nombre de clients résidant dans ce pays, le nombre de produits provenant de ce pays 
+-- Pour chaque pays listé dans les tables products ou customers, y compris les pays
+-- inconnus : le nom du pays, le nombre de clients résidant dans ce pays, le nombre de produits provenant de ce pays 
+select t1.country, count(distinct cid), count(distinct pid)
+from (
+    select *
+    from (
+        select origin as country
+        from products
+        union
+        select residence as country
+        from customers
+    ) countries left join customers on country = residence
+    union
+    select *
+    from (
+        select origin as country
+        from products
+        union
+        select residence as country
+        from customers
+    ) countries right join customers on country = residence
+) t1 left join (
+	select *
+    from (
+        select origin as country
+        from products
+        union
+        select residence as country
+        from customers
+    ) countries left join products on country = origin
+    union
+    select *
+    from (
+        select origin as country
+        from products
+        union
+        select residence as country
+        from customers
+    ) countries right join products on country = origin
+) t2 on t1.country = t2.country
+group by t1.country
 
+--------------------------------------------------------
+
+select c1 as country, count(distinct cid), count(distinct pid)
+from (
+    select t1.country as c1, t1.cid, t2.pid
+    from (
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries left join customers on country = residence
+        union
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries right join customers on country = residence
+    ) t1 left join (
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries left join products on country = origin
+        union
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries right join products on country = origin
+    ) t2 on t1.country = t2.country
+    union
+    select t3.country as c2, t3.cid, t4.pid
+    from (
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries left join customers on country = residence
+        union
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries right join customers on country = residence
+    ) t3 right join (
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries left join products on country = origin
+        union
+        select *
+        from (
+            select origin as country
+            from products
+            union
+            select residence as country
+            from customers
+        ) countries right join products on country = origin
+    ) t4 on t3.country = t4.country
+) t5
+group by country
