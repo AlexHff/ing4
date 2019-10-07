@@ -31,7 +31,8 @@ group by origin;
 
 select 'Query 03' as '';
 -- The customers who ordered in 2014 all the products (at least) that the customers named 'Smith' ordered in 2013
--- Les clients ayant commandé en 2014 tous les produits (au moins) commandés par les clients nommés 'Smith' en 2013
+-- Les clients ayant commandé en 2014 tous les produits (au moins) commandés
+-- par les clients nommés 'Smith' en 2013
 select distinct pid
 from customers natural join orders
 where cname = 'Smith'
@@ -116,7 +117,37 @@ select 'Query 10' as '';
 -- The customers who ordered the greatest number of common products. Display 3 columns: cname1, cname2, number of common products, with cname1 < cname2
 -- Les clients ayant commandé le grand nombre de produits commums. Afficher 3
 -- colonnes : cname1, cname2, nombre de produits communs, avec cname1 < cname2
-
+select t1.cname as cname1,
+	   t2.cname as cname2,
+       count(distinct t1.pid) as common
+from (
+    select *
+    from customers natural join orders
+) t1 inner join (
+	select *
+    from customers natural join orders
+) t2 on t1.pid = t2.pid
+where t1.cid <> t2.cid
+and t1.cname < t2.cname
+group by t1.cid, t2.cid, t1.cname, t2.cname
+having common = (
+	select max(common)
+    from (
+        select t1.cname as cname1,
+               t2.cname as cname2,
+               count(distinct t1.pid) as common
+        from (
+            select *
+            from customers natural join orders
+        ) t1 inner join (
+            select *
+            from customers natural join orders
+        ) t2 on t1.pid = t2.pid
+        where t1.cid <> t2.cid
+        and t1.cname < t2.cname
+        group by t1.cid, t2.cid, t1.cname, t2.cname
+    ) t3
+);
 
 select 'Query 11' as '';
 -- The customers who ordered the largest number of products
@@ -162,7 +193,24 @@ where total = (select max(total) from (
 select 'Query 15' as '';
 -- The products with the largest per-order average amount 
 -- Les produits dont le montant moyen par commande est le plus élevé
-
+select *
+from products
+where pid in (
+    select pid
+    from (
+        select pid, avg(quantity) qty
+        from orders
+        group by pid
+    ) t1
+    where qty = (
+        select max(qty)
+        from (
+            select pid, avg(quantity) qty
+            from orders
+            group by pid
+        ) t2
+    )
+);
 
 select 'Query 16' as '';
 -- The products ordered by the customers living in 'USA'
@@ -175,7 +223,19 @@ select 'Query 17' as '';
 -- The pairs of customers who ordered the same product en 2014, and that product. Display 3 columns: cname1, cname2, pname, with cname1 < cname2
 -- Les paires de client ayant commandé le même produit en 2014, et ce produit.
 -- Afficher 3 colonnes : cname1, cname2, pname, avec cname1 < cname2
-
+select t1.cname as cname1,
+	   t2.cname as cname2,
+       t1.pname
+from (
+    select *
+    from customers natural join orders natural join products
+) t1 inner join (
+	select *
+    from customers natural join orders natural join products
+) t2 on t1.pid = t2.pid
+where t1.cname < t2.cname
+and extract(year from t1.odate) = 2014
+group by t1.cid, t2.cid, cname1, cname2;
 
 select 'Query 18' as '';
 -- The products whose price is greater than all products from 'India'
@@ -211,48 +271,6 @@ select 'Query 20' as '';
 -- For all countries listed in tables products or customers, including unknown countries: the name of the country, the number of customers living in this country, the number of products originating from that country
 -- Pour chaque pays listé dans les tables products ou customers, y compris les pays
 -- inconnus : le nom du pays, le nombre de clients résidant dans ce pays, le nombre de produits provenant de ce pays 
-select t1.country, count(distinct cid), count(distinct pid)
-from (
-    select *
-    from (
-        select origin as country
-        from products
-        union
-        select residence as country
-        from customers
-    ) countries left join customers on country = residence
-    union
-    select *
-    from (
-        select origin as country
-        from products
-        union
-        select residence as country
-        from customers
-    ) countries right join customers on country = residence
-) t1 left join (
-	select *
-    from (
-        select origin as country
-        from products
-        union
-        select residence as country
-        from customers
-    ) countries left join products on country = origin
-    union
-    select *
-    from (
-        select origin as country
-        from products
-        union
-        select residence as country
-        from customers
-    ) countries right join products on country = origin
-) t2 on t1.country = t2.country
-group by t1.country
-
---------------------------------------------------------
-
 select c1 as country, count(distinct cid), count(distinct pid)
 from (
     select t1.country as c1, t1.cid, t2.pid

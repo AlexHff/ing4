@@ -1,3 +1,5 @@
 #!/bin/bash
-gcc calc.c -o calc -pthread
-./calc
+gcc calcp.c -o calcp
+./calcp
+gcc calct.c -o calct -pthread
+./calct
