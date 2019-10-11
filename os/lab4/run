@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc copy.c -o copy
+./copy text1 text2

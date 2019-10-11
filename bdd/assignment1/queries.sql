@@ -33,11 +33,37 @@ select 'Query 03' as '';
 -- The customers who ordered in 2014 all the products (at least) that the customers named 'Smith' ordered in 2013
 -- Les clients ayant commandé en 2014 tous les produits (au moins) commandés
 -- par les clients nommés 'Smith' en 2013
-select distinct pid
+select distinct cid, cname, residence
 from customers natural join orders
-where cname = 'Smith'
-and extract(year from odate) = 2013;
+where pid in (
+    select pid
+    from orders
+    where cid in (
+        select cid
+        from customers natural join orders
+        where cname = 'Smith'
+        and extract(year from odate) = 2013
+    )
+)
+and extract(year from odate) = 2014;
 -- FAUX
+SELECT DISTINCT c.cname 
+FROM customers c
+WHERE NOT EXISTS
+(
+    	SELECT oo.pid
+	FROM customers cc
+	JOIN orders oo on cc.cid=oo.cid 
+	WHERE cc.cname='Smith' 
+    	AND oo.odate BETWEEN '2013-01-01' And '2013-12-31' 
+   	 AND oo.pid NOT IN
+	(
+        		SELECT DISTINCT o.pid
+		FROM orders o
+        		WHERE o.cid=c.cid
+		AND o.odate BETWEEN '2014-01-01' And '2014-12-31'
+    	)
+);
 
 select 'Query 04' as '';
 -- For each customer and each product, the customer's name, the product's name, the total amount ordered by the customer for that product,
@@ -56,8 +82,8 @@ order by cname, montant desc, pid;
 select 'Query 05' as '';
 -- The customers who only ordered products originating from their country
 -- Les clients n'ayant commandé que des produits provenant de leur pays
-select distinct cid, cname, residence
-from customers natural join orders natural join products
+select *
+from customers
 where cid not in (
     select cid
     from customers natural join orders natural join products
@@ -84,6 +110,7 @@ select 'Query 07' as '';
 select avg(quantity)
 from customers natural join orders natural join products
 where residence = 'USA';
+
 select avg(quantity)
 from customers natural join orders natural join products
 where residence = 'France';
