@@ -35,24 +35,20 @@ select 'Query 03' as '';
 -- The customers who ordered in 2014 all the products (at least) that the customers named 'Smith' ordered in 2013
 -- Les clients ayant commandé en 2014 tous les produits (au moins) commandés
 -- par les clients nommés 'Smith' en 2013
-SELECT DISTINCT c.cname 
-FROM customers c
-WHERE NOT EXISTS
-(
-    	SELECT oo.pid
-	FROM customers cc
-	JOIN orders oo on cc.cid=oo.cid 
-	WHERE cc.cname='Smith' 
-    	AND oo.odate BETWEEN '2013-01-01' And '2013-12-31' 
-   	 AND oo.pid NOT IN
-	(
-        		SELECT DISTINCT o.pid
-		FROM orders o
-        		WHERE o.cid=c.cid
-		AND o.odate BETWEEN '2014-01-01' And '2014-12-31'
-    	)
+select *
+from customers c
+where not exists (
+    select pid
+    from customers natural join orders
+    where pid not in (
+        select distinct pid
+        from orders
+        where extract(year from odate) = 2014
+        and c.cid = cid
+    )
+    and cname = 'Smith'
+    and extract(year from odate) = 2013
 );
--- FAUX -----------------------------------------------------------------------------------------------------------
 
 select 'Query 04' as '';
 -- For each customer and each product, the customer's name, the product's name, the total amount ordered by the customer for that product,
@@ -63,11 +59,10 @@ select 'Query 04' as '';
 -- commandé (plus grance valeur d'abord), puis par id de produit (croissant)
 select cname,
        pname,
-       sum(quantity) as montant
+       sum(quantity * price) as montant
 from customers natural join orders natural join products
 group by cid, pid, cname, pname
 order by cname, montant desc, pid;
--- CHECK THE MEANING OF AMOUNT ORDERED ------------------------------------------------------------------------
 
 select 'Query 05' as '';
 -- The customers who only ordered products originating from their country
@@ -199,19 +194,29 @@ select 'Query 12' as '';
 select *
 from products
 where pid in (
-    select distinct t1.pid
+    select pid
     from (
-        select cid, pid
-        from customers natural join orders
-        where residence = 'France'
-    ) t1 inner join (
-        select cid, pid
-        from customers natural join orders
-        where residence = 'France'
-    ) t2 on t1.pid = t2.pid
-    where t1.cid < t2.cid
+        select pid, count(pid) c
+        from (
+            select cid, pid
+            from customers natural join orders
+            where residence = 'France'
+        ) t1
+        group by pid
+    ) t4
+    where c = (
+        select count(*)
+        from (
+            select count(cid)
+            from (
+                select cid, pid
+                from customers natural join orders
+                where residence = 'France'
+            ) t2
+            group by cid
+        ) t3
+    )
 );
--- FAUX ----------------------------------------------------------------------------------------------
 
 select 'Query 13' as '';
 -- The customers who live in the same country customers named 'Smith' live in (customers 'Smith' not shown in the result)
@@ -286,6 +291,7 @@ from (
 where t1.cname < t2.cname
 and extract(year from t1.odate) = 2014
 group by t1.cid, t2.cid, cname1, cname2;
+-- CHECK ---------------------------------------------
 
 select 'Query 18' as '';
 -- The products whose price is greater than all products from 'India'
@@ -297,24 +303,28 @@ where price > all (
     from products
     where origin = 'India'
 )
-and origin <> 'India';
+and (origin <> 'India' or origin is null);
 
 select 'Query 19' as '';
 -- The products ordered by the smallest number of customers (products never ordered are excluded)
 -- Les produits commandés par le plus petit nombre de clients (les produits jamais commandés sont exclus)
-select pid, pname, price, origin
-from (
-	select pid, pname, price, origin, count(pid) prods
-    from customers natural join orders natural join products
-    group by pid, pname, price, origin
-) t1
-where prods = (
-	select min(prods)
+select *
+from products
+where pid in (
+    select pid
     from (
-    	select pid, pname, price, origin, count(pid) prods
-        from customers natural join orders natural join products
-        group by pid, pname, price, origin
-    ) t2
+        select pid, count(distinct cid) c
+        from orders
+        group by pid
+    ) t1
+    where c = (
+        select min(c)
+        from (
+            select pid, count(distinct cid) c
+            from orders
+            group by pid
+        ) t2
+    )
 );
 
 select 'Query 20' as '';
@@ -401,4 +411,4 @@ from (
         ) countries right join products on country = origin
     ) t4 on t3.country = t4.country
 ) t5
-group by country
+group by country;
