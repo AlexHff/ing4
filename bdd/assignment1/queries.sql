@@ -175,14 +175,14 @@ select 'Query 11' as '';
 -- Les clients ayant commandé le plus grand nombre de produits
 select cid, cname, residence
 from (
-    select cid, cname, residence, sum(quantity) qty
+    select cid, cname, residence, sum(distinct pid) qty
     from customers natural join orders
     group by cid, cname, residence
 ) t1
 where qty = (
 	select max(qty)
     from (
-        select cid, cname, residence, sum(quantity) qty
+        select cid, cname, residence, sum(distinct pid) qty
         from customers natural join orders
         group by cid, cname, residence
     ) t2

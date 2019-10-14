@@ -55,8 +55,8 @@ void *dif(void *ptr) {
 }
 
 void calc_thread(int a, int b, int c, int d, int e, int f) {
-  pthread_t t1, t2, t3;
-  int rt1, rt2, rt3, res;
+  pthread_t t1, t2;
+  int rt1, rt2, res;
   int *a_b, *c_d, *e_f;
   struct arg_struct args1;
   args1.arg1 = a;
@@ -64,15 +64,12 @@ void calc_thread(int a, int b, int c, int d, int e, int f) {
   struct arg_struct args2;
   args2.arg1 = c;
   args2.arg2 = d;
-  struct arg_struct args3;
-  args3.arg1 = e;
-  args3.arg2 = f;
   rt1 = pthread_create(&t1, NULL, &sum, (void *) &args1);
   rt2 = pthread_create(&t2, NULL, &dif, (void *) &args2);
-  rt3 = pthread_create(&t3, NULL, &sum, (void *) &args3);
   pthread_join(t1, (void **) &a_b);
   pthread_join(t2, (void **) &c_d);
-  pthread_join(t3, (void **) &e_f);
-  res = *a_b * *c_d + *e_f;
+  *e_f = e + f;
+  res = *a_b * *c_d;
+  res += *e_f;
   printf("%d\n", res);
 }
