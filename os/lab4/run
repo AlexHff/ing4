@@ -1,5 +1,7 @@
 #!/bin/bash
 #gcc copy.c -o copy
 #./copy text1 text2
-gcc pipe.c -o pipe
-./pipe "ps aux"
+#gcc pipe.c -o pipe
+#./pipe
+gcc bcall.c -o bcall
+./bcall

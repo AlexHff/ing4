@@ -1,0 +1,9 @@
+\section{File Descriptors}
+cat concatenates files and prints on the standard output. More specifically, cat creates a pointer to the buffer, used by reads and writes. It then loops until the end of the file and reads a block of input using read(int fd, void *buf, size_t count). Finally, it writes the content of the buffer to the STDOUT_FILENO file descriptor using write(int fd, const void*bug, size_t count) which is redirected towards the terminal by default.\\
+The standard output can be redirected using the follwing symbol ">" (greater than). In our example, the output from cat is written to text2 instead of being printed on the terminal. This will overwrite any existing data in text2.
+
+\section{Pipes}
+Another way of redirecting the standard output is by using pipes. The pipe() system call creates an unidirectional data channel that can be shared between processes. It returns two file descriptors using an array, one is the reading end and the other one is the writing end. In the terminal, pipes can be used with the "|" (vertical line) symbol. In our example, what happens is that the standard output of ps aus is being redirected towards another process which is more. more is a filter for paging through text. Therefore, the standard output of ps aux became the standard input of more.
+
+\section{Non-blocking calls}
+fcntl() performs one of the operations described below on the open file descriptor fd.  The operation is determined by cmd. The file descriptor can either be a handle to access a file or other input/output resource. In our case, it is the standard input defined by its unistd.h symbolic constant STDIN_FILENO.
