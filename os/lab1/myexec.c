@@ -15,8 +15,6 @@ int main(){
     char command[50];
     strcpy(command, "firefox");
     execl("/bin/sh", "sh", "-c", command, (char *) NULL);
-    //char * argv_list[] = {NULL}; 
-    //execv("helloworld",argv_list); 
     printf("child process, pid = %u\n",getpid()); 
   }
   else{

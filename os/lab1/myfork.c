@@ -8,6 +8,7 @@ int main(int argc, char* argv[])
 {
   int i = 5;
   if (fork() == 0) {
+    wait(NULL);
     fprintf(stdout, "I am child and my PID is %d i=%d .\n", getpid(), ++i);
   } else {
     fprintf(stdout, "I am parent and my PID is %d i=%d.\n", getpid(), --i);
