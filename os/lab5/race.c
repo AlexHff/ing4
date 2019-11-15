@@ -13,7 +13,8 @@ int main(int argc, char* argv[])
   pthread_create(&t2, NULL, &dec, NULL);
   pthread_join(t1, NULL);
   pthread_join(t2, NULL);
-  printf("%d\n", i);
+  if (i != 65)
+    printf("%d\n", i);
   return 0;
 }
 
