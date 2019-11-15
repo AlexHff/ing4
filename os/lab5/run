@@ -1,0 +1,8 @@
+#!/bin/bash
+#gcc calc.c -o calc -pthread
+#/usr/bin/time -v ./calc -R
+gcc race.c -o race -pthread
+for i in {1..10000}
+do
+  ./race
+done
