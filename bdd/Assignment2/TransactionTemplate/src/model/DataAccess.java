@@ -32,6 +32,10 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Creates a new database and return its status. 
+	 * @return
+	 */
 	public boolean createDatabase() {
 		try {
 			String sql = "drop table accounts";
@@ -53,6 +57,11 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Creates a new account given a number and returns the status.
+	 * @param number
+	 * @return
+	 */
 	public boolean createAccount(int number) {
 		String sql = "insert into accounts values (" + number + ", 0.0)";
 		try {
@@ -64,29 +73,47 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Returns a lists of all accounts in the database.
+	 * @return
+	 * @throws SQLException
+	 */
 	public synchronized List<Integer> getAccounts() throws SQLException {
 		String sql = "select number from accounts";
 		try {
-			// Disable auto-commit mode
 			Statement statement = connection.createStatement();
+
+			// Disable auto-commit mode which starts the transaction
 			connection.setAutoCommit(false);
+
 			ResultSet result = statement.executeQuery(sql);
+
 			List<Integer> list = new ArrayList<>();
 			while (result.next()) {
 				list.add(result.getInt(1));
 			}
+
 			// Commit the transaction making it exit successfully
 			connection.commit();
+
 			return list;
 		} catch (SQLException e) {
+			// Catch SQLException and rollback
 			System.err.println(e.getErrorCode());
 			connection.rollback();
 			return Collections.emptyList();
 		} finally {
+			// It is good practice to set auto-commit to enabled to avoid other locks
 			connection.setAutoCommit(true);
 		}
 	}
 
+	/**
+	 * Returns the balance of a given account number or -1 if it doesn't exist. 
+	 * @param number
+	 * @return
+	 * @throws SQLException
+	 */
 	public synchronized long getBalance(int number) throws SQLException {
 		String sql = "select balance from accounts where number = " + number;
 		try {
@@ -111,6 +138,13 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Set the balance for a given account. 
+	 * @param number
+	 * @param balance
+	 * @return
+	 * @throws SQLException
+	 */
 	public synchronized boolean setBalance(int number, long balance) throws SQLException {
 		String sql = "update accounts set balance = " + balance + " where number = " + number;
 		try {
@@ -131,6 +165,14 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Transfers money from one account to another.
+	 * @param from
+	 * @param to
+	 * @param amount
+	 * @return
+	 * @throws SQLException
+	 */
 	public synchronized boolean transfert(int from, int to, long amount) throws SQLException {
 		// check from account
 		long balance = getBalance(from);
@@ -165,6 +207,11 @@ public class DataAccess {
 		return true;
 	}
 
+	/**
+	 * Returns the total value of holdings in the bank.
+	 * @return
+	 * @throws SQLException
+	 */
 	public synchronized long getHoldings() throws SQLException {
 		// get account list
 		List<Integer> accounts = getAccounts();
@@ -187,6 +234,9 @@ public class DataAccess {
 		return holdings;
 	}
 
+	/**
+	 * Closes the connection.
+	 */
 	public void close() {
 		try {
 			connection.close();
@@ -195,6 +245,10 @@ public class DataAccess {
 		}
 	}
 
+	/**
+	 * Return the current thread's name.
+	 * @return
+	 */
 	private static String getThread() {
 		return Thread.currentThread().getName();
 	}
