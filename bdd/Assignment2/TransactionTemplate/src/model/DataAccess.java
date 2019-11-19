@@ -19,7 +19,7 @@ public class DataAccess {
 
 	public DataAccess(String url, String user, String password) throws SQLException {
 		connection = DriverManager.getConnection(url, user, password);
-		connection.setTransactionIsolation(8);
+		//connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class DataAccess {
 	}
 
 	public boolean createAccount(int number) {
+		String sql = "insert into accounts values (" + number + ", 0.0)";
 		try {
-			String sql = "insert into accounts values (" + number + ", 0.0)";
 			Statement statement = connection.createStatement();
 			int result = statement.executeUpdate(sql);
 			return result == 1;
@@ -64,12 +64,12 @@ public class DataAccess {
 		}
 	}
 
-	public List<Integer> getAccounts() throws SQLException {
+	public synchronized List<Integer> getAccounts() throws SQLException {
 		String sql = "select number from accounts";
 		try {
 			// Disable auto-commit mode
-			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
+			connection.setAutoCommit(false);
 			ResultSet result = statement.executeQuery(sql);
 			List<Integer> list = new ArrayList<>();
 			while (result.next()) {
@@ -79,12 +79,15 @@ public class DataAccess {
 			connection.commit();
 			return list;
 		} catch (SQLException e) {
+			System.err.println(e.getErrorCode());
 			connection.rollback();
 			return Collections.emptyList();
+		} finally {
+			connection.setAutoCommit(true);
 		}
 	}
 
-	public long getBalance(int number) throws SQLException {
+	public synchronized long getBalance(int number) throws SQLException {
 		String sql = "select balance from accounts where number = " + number;
 		try {
 			connection.setAutoCommit(false);
@@ -100,26 +103,35 @@ public class DataAccess {
 			connection.commit();
 			return balance;
 		} catch (SQLException e) {
+			System.err.println(e.getErrorCode());
 			connection.rollback();
 			return -1;
+		} finally {
+			connection.setAutoCommit(true);
 		}
 	}
 
-	public boolean setBalance(int number, long balance) throws SQLException {
+	public synchronized boolean setBalance(int number, long balance) throws SQLException {
 		String sql = "update accounts set balance = " + balance + " where number = " + number;
 		try {
 			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 			int result = statement.executeUpdate(sql);
-			connection.commit();
-			return result == 1;
+			if (result == 1) {
+				connection.commit();
+				return true;
+			}
+			throw new SQLException();
 		} catch (SQLException e) {
+			System.err.println(e.getErrorCode());
 			connection.rollback();
 			return false;
+		} finally {
+			connection.setAutoCommit(true);
 		}
 	}
 
-	public boolean transfert(int from, int to, long amount) throws SQLException {
+	public synchronized boolean transfert(int from, int to, long amount) throws SQLException {
 		// check from account
 		long balance = getBalance(from);
 		if (balance == -1.0) {
@@ -153,7 +165,7 @@ public class DataAccess {
 		return true;
 	}
 
-	public long getHoldings() throws SQLException {
+	public synchronized long getHoldings() throws SQLException {
 		// get account list
 		List<Integer> accounts = getAccounts();
 		System.out.println(getThread() + ": accounts = " + accounts);

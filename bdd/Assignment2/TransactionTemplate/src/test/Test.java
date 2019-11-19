@@ -1,8 +1,8 @@
 package test;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,7 +14,7 @@ public class Test {
 	// CONSTANTS
 	//
 	private static final int ACCOUNT_NUMBER = 5;
-	private static final int TRANSFERT_THREAD_NUMBER = 2;
+	private static final int TRANSFERT_THREAD_NUMBER = 1;
 
 	private static final long EXECUTION_TIME = 10 * 1000;
 
@@ -60,7 +60,7 @@ public class Test {
 				}
 
 				// get the account set
-				List<Integer> accounts = new ArrayList<Integer>();
+				List<Integer> accounts = Collections.emptyList();
 				try {
 					accounts = data.getAccounts();
 				} catch (SQLException e) {
