@@ -14,9 +14,9 @@ public class Test {
 	// CONSTANTS
 	//
 	private static final int ACCOUNT_NUMBER = 5;
-	private static final int TRANSFERT_THREAD_NUMBER = 5;
+	private static final int TRANSFERT_THREAD_NUMBER = 2;
 
-	private static final long EXECUTION_TIME = 10 * 100;
+	private static final long EXECUTION_TIME = 10 * 1000;
 
 	//
 	// CLASS FIELDS
@@ -63,27 +63,20 @@ public class Test {
 				List<Integer> accounts = new ArrayList<Integer>();
 				try {
 					accounts = data.getAccounts();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
+				// System.out.println(this + ": accounts = " + accounts);
 				if (accounts.isEmpty()) {
 					continue;
 				}
-				/*
-				for (int account : accounts) {
-					try {
-						System.out.println(account + " " + data.getBalance(account));
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				*/
 
 				// transfert random amount between random accounts
 				int from = accounts.get(random.nextInt(accounts.size()));
 				int to = accounts.get(random.nextInt(accounts.size()));
 				long amount = random.nextInt(1000);
-				//System.out.println(this + ": transfering €" + amount + " from #" + from + " to #" + to);
+//        System.out.println(this
+//            + ": transfering €" + amount + " from #" + from + " to #" + to);
 				try {
 					if (data.transfert(from, to, amount)) {
 						operationCount.incrementAndGet();
@@ -92,6 +85,7 @@ public class Test {
 					e.printStackTrace();
 				}
 			}
+
 			System.out.println(this + ": exiting");
 		}
 	}
@@ -102,7 +96,6 @@ public class Test {
 	private static class CheckHoldingsThread extends Thread {
 
 		private final DataAccess data;
-		//private final Random random = new Random();
 
 		public CheckHoldingsThread(DataAccess data, String name) {
 			super(name);
@@ -149,6 +142,7 @@ public class Test {
 	}
 
 	public static void main(String[] args) throws Exception {
+
 		// TODO Remove before posting
 		args = new String[3];
 		args[0] = "jdbc:mysql://localhost/bank";
@@ -198,5 +192,6 @@ public class Test {
 			thread.join();
 		}
 		System.out.println("done.");
+
 	}
 }
