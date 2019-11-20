@@ -1,0 +1,131 @@
+Q1.1
+Router 1:
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface FastEthernet 1/0
+Router(config-if)#ip address 192.168.2.33 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface FastEthernet 0/0
+Router(config-if)#ip address 192.168.2.129 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface Serial 2/0
+Router(config-if)#ip address 192.168.2.65 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+Router 2:
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface FastEthernet 0/0
+Router(config-if)#ip address 192.168.2.97 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface FastEthernet 1/0
+Router(config-if)#ip address 192.168.2.161 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface Serial 2/0
+Router(config-if)#ip address 192.168.2.66 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+
+Q1.5
+Router2:
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#ip dhcp pool IPNet5
+Router(dhcp-config)#network 192.168.2.160 255.255.255.224
+Router(dhcp-config)#default-router 192.168.2.161
+Router(dhcp-config)#ip dhcp excluded-address 192.168.2.161 192.168.2.171
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#ip dhcp pool IPNet4
+Router(dhcp-config)#network 192.168.2.96 255.255.255.224
+Router(dhcp-config)#default-router 192.168.2.161
+Router(dhcp-config)#ip dhcp excluded-address 192.168.2.97 192.168.2.107
+\end{verbatim}
+
+Q2.1
+Router2:
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface Serial 3/0
+Router(config-if)#ip address 192.168.2.193 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+Router3:
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface Serial 2/0
+Router(config-if)#ip address 192.168.2.194 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+\begin{verbatim}
+Router>enable
+Router#config t
+Router(config)#interface FastEthernet 0/0
+Router(config-if)#ip address 192.168.2.225 255.255.255.224
+Router(config-if)#no shutdown
+\end{verbatim}
+
+Q2.2
+Router1:
+\begin{verbatim}
+Router(config)#ip route 192.168.2.224 255.255.255.224 192.168.2.66
+\end{verbatim}
+Router2:
+\begin{verbatim}
+Router(config)#ip route 192.168.2.224 255.255.255.224 192.168.2.194
+\end{verbatim}
+Router3:
+\begin{verbatim}
+Router(config)#ip route 192.168.2.128 255.255.255.224 192.168.2.193
+\end{verbatim}
+
+Q2.5
+Router1:
+\begin{verbatim}
+Router(config)#interface FastEthernet 0/0
+Router(config-if)#ip helper-address 192.168.2.226
+\end{verbatim}
+Router2:
+\begin{verbatim}
+Router(config)#interface Serial 2/0
+Router(config-if)#ip helper-address 192.168.2.226
+\end{verbatim}
+Router3:
+\begin{verbatim}
+Router(config)#interface Serial 2/0
+Router(config-if)#ip helper-address 192.168.2.226
+\end{verbatim}
+
+Q3.1
+Router1:
+\begin{verbatim}
+Router(config)#ip route 192.168.2.192 255.255.255.224 192.168.2.66
+\end{verbatim}
+Router3:
+\begin{verbatim}
+Router(config)#ip route 192.168.2.64 255.255.255.224 192.168.2.193
+\end{verbatim}
+
