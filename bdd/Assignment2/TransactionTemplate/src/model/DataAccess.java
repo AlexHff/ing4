@@ -25,8 +25,8 @@ public class DataAccess {
 	@Override
 	public String toString() {
 		try {
-			return "DataAccess{" + "connection=" + connection + " autoCommitMode=" + connection.getAutoCommit()
-					+ " transactionIsolation=" + connection.getTransactionIsolation() + "}";
+			return "DataAccess{" + "\nconnection=" + connection + "\nautoCommitMode=" + connection.getAutoCommit()
+					+ "\ntransactionIsolation=" + connection.getTransactionIsolation() + "\n}";
 		} catch (SQLException e) {
 			return e.getMessage();
 		}
