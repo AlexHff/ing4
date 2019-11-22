@@ -6,11 +6,11 @@
 #include <sys/wait.h> 
 #include <string.h>
 
-int main(){
+int main() {
   pid_t  pid; 
   int status; 
   pid = fork(); 
-  if (pid == 0){ 
+  if (pid == 0) { 
     printf("child process, pid = %u\n",getpid()); 
     char command[50];
     strcpy(command, "firefox");

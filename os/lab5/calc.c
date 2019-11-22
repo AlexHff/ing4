@@ -1,63 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <unistd.h>
-#include <sys/shm.h>
-#include <sys/times.h>
-#include <sys/types.h>
-#include <sys/resource.h>
-#include <sys/wait.h>
 #include <pthread.h>
-#include <signal.h>
+#include <semaphore.h>
+#include <unistd.h>
 
 struct arg_struct {
   int arg1;
   int arg2;
 };
 
-void *sum(void *ptr);
-void *dif(void *ptr);
-clock_t times(struct tms *buf);
+void *sum(void *arg);
+
+sem_t mutex;
+int n = 3;
+int result[n];
+int spot = 0;
 
 int main(int argc, char* argv[])
 {
-  int a = 2;
-  int b = 2;
-  int c = 2;
-  int d = 1;
-  int e = 5;
-  int f = 5;
-  pthread_t t1, t2;
-  int rt1, rt2, res;
-  int *a_b, *c_d, *e_f;
-  struct arg_struct args1;
-  args1.arg1 = a;
-  args1.arg2 = b;
-  struct arg_struct args2;
-  args2.arg1 = c;
-  args2.arg2 = d;
-  rt1 = pthread_create(&t1, NULL, &sum, (void *) &args1);
-  rt2 = pthread_create(&t2, NULL, &dif, (void *) &args2);
-  pthread_join(t1, (void **) &a_b);
-  pthread_join(t2, (void **) &c_d);
-  *e_f = e + f;
-  res = *a_b * *c_d;
-  res += *e_f;
-  printf("%d\n", res);
+  int i;
+  int a = 2, b = 2, c = 2, d = 1, e = 5, f = 5;
+  struct arg_struct args;
+  pthread_t t1, t2, t3;
+
+  sem_init(&mutex, 0, 1);
+
+  args.arg1 = a;
+  args.arg2 = b;
+  pthread_create(&t1, NULL, &sum, (void *) &args);
+
+  args.arg1 = c;
+  args.arg2 = d;
+  pthread_create(&t2, NULL, &sum, (void *) &args);
+
+  args.arg1 = e;
+  args.arg2 = f;
+  pthread_create(&t3, NULL, &sum, (void *) &args);
+
+  pthread_join(t1, NULL);
+  pthread_join(t2, NULL);
+  pthread_join(t3, NULL);
+
+  for (i = 0; i < n; i++) {
+    printf("%d\n", result[i]);
+  }
+
   return 0;
 }
 
-void *sum(void *ptr) {
-  struct arg_struct *args = (struct arg_struct *) ptr;
-  int *ret = malloc(sizeof(int));
-  *ret = args->arg1 + args->arg2;
-  pthread_exit(ret);
-}
-
-void *dif(void *ptr) {
-  struct arg_struct *args = (struct arg_struct *) ptr;
-  int *ret = malloc(sizeof(int));
-  *ret = args->arg1 - args->arg2;
-  pthread_exit(ret);
+void *sum(void *arg) {
+  struct arg_struct *args = (struct arg_struct *) arg;
+  sem_wait(&mutex);
+  if (spot < n) {
+    result[n] = args->arg1 + args->arg2;
+    n++;
+  }
+  sem_post(&mutex);
 }
 
