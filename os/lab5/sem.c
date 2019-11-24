@@ -12,7 +12,6 @@ sem_t mutex;
 int main(int argc, char* argv[])
 {
   i = 65;
-  // Why 1?
   sem_init(&mutex, 0, 1);
   pthread_t t1, t2;
 
