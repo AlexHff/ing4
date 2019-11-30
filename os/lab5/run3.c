@@ -8,11 +8,12 @@ void *runThread1(void *arg);
 void *runThread2(void *arg);
 void *runThread3(void *arg);
 
-sem_t mutex;
+sem_t mutex1, mutex2;
 
 int main(int argc, char* argv[])
 {
-  sem_init(&mutex, 0, 1);
+  sem_init(&mutex1, 0, 1);
+  sem_init(&mutex2, 0, 1);
   pthread_t t1, t2, t3;
 
   pthread_create(&t1, NULL, &runThread1, NULL);
@@ -27,20 +28,21 @@ int main(int argc, char* argv[])
 }
 
 void *runThread1(void *arg) {
-  sem_wait(&mutex);
   system("firefox");
-  sem_post(&mutex);
+  sem_post(&mutex1);
 }
 
 void *runThread2(void *arg) {
-  sem_wait(&mutex);
+  sem_wait(&mutex1);
   system("htop");
-  sem_post(&mutex);
+  sem_post(&mutex1);
 }
 
 void *runThread3(void *arg) {
-  sem_wait(&mutex);
+  sem_wait(&mutex1);
+  sem_wait(&mutex2);
   system("vi");
-  sem_post(&mutex);
+  sem_post(&mutex1);
+  sem_post(&mutex2);
 }
 
