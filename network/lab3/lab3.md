@@ -83,3 +83,100 @@ SWX2:\
 
 SWX3:\
 ![q93](q93.png)
+
+### Q10
+Now we want to create VLAN Trunking Protocol for a server and multiple clients. First, we configure the server using the following commands:
+```
+Switch(config)#vtp domain lab.cisco
+Changing VTP domain name from NULL to lab.cisco
+Switch(config)#vtp password cisco
+Setting device VLAN database password to cisco
+Switch(config)#vtp mode server
+Device mode already VTP SERVER.
+Switch(config)#vtp version 2
+```
+Second, we configure the clients using the following commands:
+```
+Switch(config)#vtp domain lab.cisco
+Domain name already set to lab.cisco.
+Switch(config)#vtp password cisco
+Setting device VLAN database password to cisco
+Switch(config)#vtp mode client
+Setting device to VTP CLIENT mode.
+```
+
+### Q11
+SWX:\
+![q100](q100.png)
+
+SWX1:\
+![q101](q101.png)
+
+SWX2:\
+![q102](q102.png)
+
+SWX3:\
+![q103](q103.png)
+
+### Q12
+We can add VLANs using the following commands:
+```
+Switch(config)#vlan 10
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#exit
+```
+
+### Q13
+Now we can print the VLAN configuration.
+
+SWX:\
+![q120](q120.png)
+
+SWX1:\
+![q121](q121.png)
+
+SWX2:\
+![q122](q122.png)
+
+SWX3:\
+![q123](q123.png)
+
+### Q14
+SWX1:\
+![q141](q141.png)
+
+SWX2:\
+![q142](q142.png)
+
+SWX3:\
+![q143](q143.png)
+
+We can observe on all three screenshots that the root bridge for each and every switch is indeed SWX.
+
+### Q15
+To change the VLAN on the switch SWX2, we do the following:
+```
+Switch(config)#interface FastEthernet 0/4
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#exit
+Switch(config)#interface FastEthernet 0/5
+Switch(config-if)#switchport access vlan 20
+```
+Now PC2-B is on VLAN 10 and PC2-C is on VLAN 20. PC1-A is still on VLAN 1.
+
+### Q16
+Now let's try and see how ping works on this new network configuration.
+
+Here is the new network:\
+![q16](q16.png)
+
+a. Ping PC2-B and PC3-B from PC1-B\
+![q16a](q16a.png)
+
+b. Ping PC2-C from PC1-C\
+![q16b](q16b.png)
+
+c. Ping PC1-B and PC1-C from PC1-A\
+![q16c](q16c.png)\
+This ping does not work because we are trying to send an ICMP request to a PC on a network which is different from the one we are currently on. We would need a router to be able to ping other networks.
