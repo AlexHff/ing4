@@ -96,15 +96,15 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <a id="user-content-shell" class="anchor" href="#shell" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.find(
     {
-        <span class="pl-ii">job</span>: <span class="pl-s"><span class="pl-pds">"</span>clerk<span class="pl-pds">"</span></span>
+        <span class="pl-s"><span class="pl-pds">"</span>job<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>clerk<span class="pl-pds">"</span></span>
     },
     {
-        <span class="pl-ii">salary</span>: <span class="pl-c1">1</span>,
-        <span class="pl-ii">_id</span>: <span class="pl-c1">0</span>
+        <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
     }
 ).sort(
     {
-        <span class="pl-ii">salary</span>: <span class="pl-c1">-1</span>
+        <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">-1</span>
     }
 ).limit(<span class="pl-c1">1</span>)</pre></div>
 <h2>
@@ -130,16 +130,22 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">job</span>: <span class="pl-s"><span class="pl-pds">"</span>manager<span class="pl-pds">"</span></span>
+                <span class="pl-s"><span class="pl-pds">"</span>job<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>manager<span class="pl-pds">"</span></span>
             }
         },
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">totalamount</span>: { <span class="pl-ii">$sum</span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>totalamount<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
             }
         }
     ]
@@ -160,6 +166,12 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
                 <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
                 <span class="pl-s"><span class="pl-pds">"</span>totalamount<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
             }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
+            }
         }
     ]
 )
@@ -172,12 +184,18 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-c1">null</span>,
-                <span class="pl-ii">min</span>: { <span class="pl-ii">$min</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
-                <span class="pl-ii">max</span>: { <span class="pl-ii">$max</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
-                <span class="pl-ii">avg</span>: { <span class="pl-ii">$avg</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span>,
+                <span class="pl-s"><span class="pl-pds">"</span>min<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$min<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
+                <span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$max<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
             }
         }
     ]
@@ -193,6 +211,12 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
                 <span class="pl-s"><span class="pl-pds">"</span>min<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$min<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
                 <span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$max<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> },
                 <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
             }
         }
     ]
@@ -215,10 +239,10 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">avg</span>: { <span class="pl-ii">$avg</span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
             }
         }
     ]
@@ -255,9 +279,9 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
         {
             <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">totalEmployees</span>: { <span class="pl-ii">$sum</span>: <span class="pl-c1">1</span> },
-                <span class="pl-ii">avgSalary</span>: { <span class="pl-ii">$avg</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>totalEmployees<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> },
+                <span class="pl-s"><span class="pl-pds">"</span>avgSalary<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
             }
         }
     ]
@@ -295,7 +319,7 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
                 <span class="pl-s"><span class="pl-pds">"</span>department.name<span class="pl-pds">"</span></span>:
                 {
@@ -305,17 +329,23 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
             }
         },
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">avg</span>: { <span class="pl-ii">$avg</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
             }
         },
         {
-            <span class="pl-ii">$sort</span>: { <span class="pl-ii">avg</span>: <span class="pl-c1">-1</span> }
+            <span class="pl-s"><span class="pl-pds">"</span>$sort<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: <span class="pl-c1">-1</span> }
         },
         {
-            <span class="pl-ii">$limit</span>: <span class="pl-c1">1</span>
+            <span class="pl-s"><span class="pl-pds">"</span>$limit<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
+            }
         }
     ]
 )</pre></div>
@@ -345,6 +375,12 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
         },
         {
             <span class="pl-s"><span class="pl-pds">"</span>$limit<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
+            }
         }
     ]
 )
@@ -357,17 +393,17 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">count</span>: { <span class="pl-ii">$sum</span>: <span class="pl-c1">1</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> }
             }
         },
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: { <span class="pl-ii">$ne</span>: <span class="pl-c1">null</span> },
-                <span class="pl-ii">count</span>: { <span class="pl-s"><span class="pl-pds">"</span>$gte<span class="pl-pds">"</span></span>: <span class="pl-c1">5</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$ne<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span> },
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$gte<span class="pl-pds">"</span></span>: <span class="pl-c1">5</span> }
             }
         }
     ]
@@ -401,20 +437,20 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$unwind</span>: <span class="pl-s"><span class="pl-pds">"</span>$missions<span class="pl-pds">"</span></span>
+            <span class="pl-s"><span class="pl-pds">"</span>$unwind<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$missions<span class="pl-pds">"</span></span>
         },
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$missions.location<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">count</span>: { <span class="pl-ii">$sum</span>: <span class="pl-c1">1</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$missions.location<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> }
             }
         },
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: { <span class="pl-ii">$ne</span>: <span class="pl-c1">null</span> },
-                <span class="pl-ii">count</span>: { <span class="pl-s"><span class="pl-pds">"</span>$gte<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$ne<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span> },
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$gte<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span> }
             }
         }
     ]
@@ -451,12 +487,12 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <div class="highlight highlight-source-json"><pre>db.employees.find(
     {},
     {
-        <span class="pl-ii">salary</span>: <span class="pl-c1">1</span>,
-        <span class="pl-ii">_id</span>: <span class="pl-c1">0</span>
+        <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
     }
 ).sort(
     {
-        <span class="pl-ii">salary</span>: <span class="pl-c1">-1</span>
+        <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">-1</span>
     }
 ).limit(<span class="pl-c1">1</span>)</pre></div>
 <h2>
@@ -475,30 +511,84 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
     <span class="pl-c1">print</span>(i)</pre></div>
 <h1>
 <a id="user-content-11-the-name-of-the-departments-with-the-highest-average-salary" class="anchor" href="#11-the-name-of-the-departments-with-the-highest-average-salary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>11 The name of the departments with the highest average salary</h1>
-<h1>
-<a id="user-content-12-for-each-city-in-which-a-mission-took-place-its-name-output-field-city-and-the-number-of-missions-in-that-city" class="anchor" href="#12-for-each-city-in-which-a-mission-took-place-its-name-output-field-city-and-the-number-of-missions-in-that-city" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 For each city in which a mission took place, its name (output field "city") and the number of missions in that city</h1>
 <h2>
 <a id="user-content-shell-10" class="anchor" href="#shell-10" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$unwind</span>: <span class="pl-s"><span class="pl-pds">"</span>$missions<span class="pl-pds">"</span></span>
-        },
-        {
-            <span class="pl-ii">$group</span>: {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$missions.location<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">count</span>: { <span class="pl-ii">$sum</span>: <span class="pl-c1">1</span> }
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
             }
         },
         {
-            <span class="pl-ii">$match</span>: {
-                <span class="pl-ii">_id</span>: { <span class="pl-ii">$ne</span>: <span class="pl-c1">null</span> }
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$max<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> }
             }
         }
     ]
 )</pre></div>
 <h2>
 <a id="user-content-python-9" class="anchor" href="#python-9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
+    [
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$max<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> }
+            }
+        }
+    ]
+)
+<span class="pl-k">for</span> i <span class="pl-k">in</span> x:
+    <span class="pl-c1">print</span>(i)</pre></div>
+<h1>
+<a id="user-content-12-for-each-city-in-which-a-mission-took-place-its-name-output-field-city-and-the-number-of-missions-in-that-city" class="anchor" href="#12-for-each-city-in-which-a-mission-took-place-its-name-output-field-city-and-the-number-of-missions-in-that-city" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>12 For each city in which a mission took place, its name (output field "city") and the number of missions in that city</h1>
+<h2>
+<a id="user-content-shell-11" class="anchor" href="#shell-11" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<div class="highlight highlight-source-json"><pre>db.employees.aggregate(
+    [
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$unwind<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$missions<span class="pl-pds">"</span></span>
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$missions.location<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> }
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>: {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$ne<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span> }
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$addFields<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$_id<span class="pl-pds">"</span></span>
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
+            }
+        }
+    ]
+)</pre></div>
+<h2>
+<a id="user-content-python-10" class="anchor" href="#python-10" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
     [
         {
@@ -514,6 +604,18 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
             <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>: {
                 <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$ne<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>null<span class="pl-pds">"</span></span> }
             }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$addFields<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>city<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$_id<span class="pl-pds">"</span></span>
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
+            }
         }
     ]
 )
@@ -522,27 +624,27 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <h1>
 <a id="user-content-13-the-name-of-the-departments-with-at-most-5-employees" class="anchor" href="#13-the-name-of-the-departments-with-at-most-5-employees" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>13 The name of the departments with at most 5 employees</h1>
 <h2>
-<a id="user-content-shell-11" class="anchor" href="#shell-11" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-12" class="anchor" href="#shell-12" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">count</span>: { <span class="pl-ii">$sum</span>: <span class="pl-c1">1</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$sum<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> }
             }
         },
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: { <span class="pl-ii">$ne</span>: <span class="pl-c1">null</span> },
-                <span class="pl-ii">count</span>: { <span class="pl-s"><span class="pl-pds">"</span>$lte<span class="pl-pds">"</span></span>: <span class="pl-c1">5</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$ne<span class="pl-pds">"</span></span>: <span class="pl-c1">null</span> },
+                <span class="pl-s"><span class="pl-pds">"</span>count<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$lte<span class="pl-pds">"</span></span>: <span class="pl-c1">5</span> }
             }
         }
     ]
 )</pre></div>
 <h2>
-<a id="user-content-python-10" class="anchor" href="#python-10" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-11" class="anchor" href="#python-11" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
     [
         {
@@ -566,26 +668,32 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <h1>
 <a id="user-content-14-the-average-salary-of-analysts" class="anchor" href="#14-the-average-salary-of-analysts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>14 The average salary of analysts</h1>
 <h2>
-<a id="user-content-shell-12" class="anchor" href="#shell-12" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-13" class="anchor" href="#shell-13" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">avg</span>: { <span class="pl-ii">$avg</span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> :<span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span>}
             }
         },
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>analyst<span class="pl-pds">"</span></span>
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>analyst<span class="pl-pds">"</span></span>
+            }
+        },
+        {
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
+            {
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
             }
         }
     ]
 )</pre></div>
 <h2>
-<a id="user-content-python-11" class="anchor" href="#python-11" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-12" class="anchor" href="#python-12" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
     [
         {
@@ -608,39 +716,39 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <h1>
 <a id="user-content-15-the-lowest-of-the-per-job-average-salary" class="anchor" href="#15-the-lowest-of-the-per-job-average-salary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>15 The lowest of the per-job average salary</h1>
 <h2>
-<a id="user-content-shell-13" class="anchor" href="#shell-13" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-14" class="anchor" href="#shell-14" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$match</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$match<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">job</span>: { <span class="pl-ii">$exists</span>: <span class="pl-c1">true</span> }
+                <span class="pl-s"><span class="pl-pds">"</span>job<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$exists<span class="pl-pds">"</span></span>: <span class="pl-c1">true</span> }
             }
         },
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">avg</span>: { <span class="pl-ii">$avg</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$job<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>avg<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
             }
         },
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">min</span>: { <span class="pl-ii">$min</span>: <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>min<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$min<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$avg<span class="pl-pds">"</span></span> }
             }
         },
         {
-            <span class="pl-ii">$project</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$project<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-c1">0</span>
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>
             }
         }
     ]
 )</pre></div>
 <h2>
-<a id="user-content-python-12" class="anchor" href="#python-12" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-13" class="anchor" href="#python-13" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
     [
         {
@@ -676,20 +784,20 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <h1>
 <a id="user-content-16-for-each-department-its-name-and-the-highest-salary-in-that-department" class="anchor" href="#16-for-each-department-its-name-and-the-highest-salary-in-that-department" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>16 For each department: its name and the highest salary in that department</h1>
 <h2>
-<a id="user-content-shell-14" class="anchor" href="#shell-14" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-15" class="anchor" href="#shell-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.aggregate(
     [
         {
-            <span class="pl-ii">$group</span>:
+            <span class="pl-s"><span class="pl-pds">"</span>$group<span class="pl-pds">"</span></span>:
             {
-                <span class="pl-ii">_id</span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
-                <span class="pl-ii">max</span>: { <span class="pl-ii">$max</span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
+                <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$department.name<span class="pl-pds">"</span></span>,
+                <span class="pl-s"><span class="pl-pds">"</span>max<span class="pl-pds">"</span></span>: { <span class="pl-s"><span class="pl-pds">"</span>$max<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>$salary<span class="pl-pds">"</span></span> }
             }
         }
     ]
 )</pre></div>
 <h2>
-<a id="user-content-python-13" class="anchor" href="#python-13" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-14" class="anchor" href="#python-14" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.aggregate(
     [
         {
@@ -706,20 +814,20 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 <h1>
 <a id="user-content-17-the-number-of-employees" class="anchor" href="#17-the-number-of-employees" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>17 The number of employees</h1>
 <h2>
-<a id="user-content-shell-15" class="anchor" href="#shell-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-16" class="anchor" href="#shell-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.countDocuments({})</pre></div>
 <h2>
-<a id="user-content-python-14" class="anchor" href="#python-14" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-15" class="anchor" href="#python-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.count_documents({})
 <span class="pl-c1">print</span>(x)</pre></div>
 <h1>
 <a id="user-content-18-one-of-the-employees-with-pretty-printing-2-methods" class="anchor" href="#18-one-of-the-employees-with-pretty-printing-2-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>18 One of the employees, with pretty printing (2 methods)</h1>
 <h2>
-<a id="user-content-shell-16" class="anchor" href="#shell-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<a id="user-content-shell-17" class="anchor" href="#shell-17" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
 <div class="highlight highlight-source-json"><pre>db.employees.findOne();
 db.employees.find().limit(<span class="pl-c1">1</span>).pretty()</pre></div>
 <h2>
-<a id="user-content-python-15" class="anchor" href="#python-15" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-16" class="anchor" href="#python-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.find_one()
 <span class="pl-c1">print</span>(x)
 x <span class="pl-k">=</span> col.find().limit(<span class="pl-c1">1</span>)
@@ -728,20 +836,20 @@ x <span class="pl-k">=</span> col.find().limit(<span class="pl-c1">1</span>)
 <h1>
 <a id="user-content-19-all-the-information-about-employees-except-their-salary-commission-and-missions" class="anchor" href="#19-all-the-information-about-employees-except-their-salary-commission-and-missions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 All the information about employees, except their salary, commission and missions</h1>
 <h2>
-<a id="user-content-shell-17" class="anchor" href="#shell-17" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
-<div class="highlight highlight-source-json"><pre>db.employees.find({}, { <span class="pl-ii">salary</span>: <span class="pl-c1">0</span>, <span class="pl-ii">commission</span>: <span class="pl-c1">0</span>, <span class="pl-ii">missions</span>: <span class="pl-c1">0</span> }).pretty()</pre></div>
+<a id="user-content-shell-18" class="anchor" href="#shell-18" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<div class="highlight highlight-source-json"><pre>db.employees.find({}, { <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>commission<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>missions<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span> }).pretty()</pre></div>
 <h2>
-<a id="user-content-python-16" class="anchor" href="#python-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-17" class="anchor" href="#python-17" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.find({}, { <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>commission<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>missions<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span> })
 <span class="pl-k">for</span> i <span class="pl-k">in</span> x:
     <span class="pl-c1">print</span>(i)</pre></div>
 <h1>
 <a id="user-content-20-the-name-and-salary-of-all-the-employees-without-the-field-_id" class="anchor" href="#20-the-name-and-salary-of-all-the-employees-without-the-field-_id" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>20 The name and salary of all the employees (without the field _id)</h1>
 <h2>
-<a id="user-content-shell-18" class="anchor" href="#shell-18" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
-<div class="highlight highlight-source-json"><pre>db.employees.find({}, { <span class="pl-ii">_id</span>: <span class="pl-c1">0</span>, <span class="pl-ii">name</span>: <span class="pl-c1">1</span>, <span class="pl-ii">salary</span>: <span class="pl-c1">1</span> }).pretty()</pre></div>
+<a id="user-content-shell-19" class="anchor" href="#shell-19" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Shell</h2>
+<div class="highlight highlight-source-json"><pre>db.employees.find({}, { <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> }).pretty()</pre></div>
 <h2>
-<a id="user-content-python-17" class="anchor" href="#python-17" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
+<a id="user-content-python-18" class="anchor" href="#python-18" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
 <div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.find({}, { <span class="pl-s"><span class="pl-pds">"</span>_id<span class="pl-pds">"</span></span>: <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">"</span>salary<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span> })
 <span class="pl-k">for</span> i <span class="pl-k">in</span> x:
     <span class="pl-c1">print</span>(i)</pre></div>
