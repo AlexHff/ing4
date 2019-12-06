@@ -7,7 +7,7 @@ db = client['company']
 col = db['employees']
 ```
 
-# 1.
+# 1 The highest salary of clerks
 
 ## Shell
 ```json
@@ -102,7 +102,6 @@ db.employees.aggregate(
                 _id: null,
                 min: { $min: "$salary" },
                 max: { $max: "$salary" },
-                sum: { $sum: "$salary" },
                 avg: { $avg: "$salary" }
             }
         }
@@ -120,7 +119,6 @@ x = col.aggregate(
                 "_id": "null",
                 "min": { "$min": "$salary" },
                 "max": { "$max": "$salary" },
-                "sum": { "$sum": "$salary" },
                 "avg": { "$avg": "$salary" }
             }
         }
@@ -402,6 +400,7 @@ for i in x:
 
 # 10 The highest salary
 
+## Shell
 ```json
 db.employees.find(
     {},
@@ -416,6 +415,7 @@ db.employees.find(
 ).limit(1)
 ```
 
+## Python
 ```python
 x = col.find(
     {},
@@ -433,3 +433,308 @@ for i in x:
 
 # 11 The name of the departments with the highest average salary
 
+# 12 For each city in which a mission took place, its name (output field "city") and the number of missions in that city
+
+## Shell
+```json
+db.employees.aggregate(
+    [
+        {
+            $unwind: "$missions"
+        },
+        {
+            $group: {
+                _id: "$missions.location",
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $match: {
+                _id: { $ne: null }
+            }
+        }
+    ]
+)
+```
+
+## Python
+```python
+x = col.aggregate(
+    [
+        {
+            "$unwind": "$missions"
+        },
+        {
+            "$group": {
+                "_id": "$missions.location",
+                "count": { "$sum": 1 }
+            }
+        },
+        {
+            "$match": {
+                "_id": { "$ne": "null" }
+            }
+        }
+    ]
+)
+for i in x:
+    print(i)
+```
+
+# 13 The name of the departments with at most 5 employees
+
+## Shell
+```json
+db.employees.aggregate(
+    [
+        {
+            $group:
+            {
+                _id: "$department.name",
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $match:
+            {
+                _id: { $ne: null },
+                count: { "$lte": 5 }
+            }
+        }
+    ]
+)
+```
+
+## Python
+```python
+x = col.aggregate(
+    [
+        {
+            "$group":
+            {
+                "_id": "$department.name",
+                "count": { "$sum": 1 }
+            }
+        },
+        {
+            "$match":
+            {
+                "_id": { "$ne": "null" },
+                "count": { "$lte": 5 }
+            }
+        }
+    ]
+)
+for i in x:
+    print(i)
+```
+
+# 14 The average salary of analysts
+
+## Shell
+```json
+db.employees.aggregate(
+    [
+        {
+            $group:
+            {
+                _id: "$job",
+                avg: { $avg :"$salary"}
+            }
+        },
+        {
+            $match:
+            {
+                _id: "analyst"
+            }
+        }
+    ]
+)
+```
+
+## Python
+```python
+x = col.aggregate(
+    [
+        {
+            "$group":
+            {
+                "_id": "$job",
+                "avg": { "$avg" :"$salary"}
+            }
+        },
+        {
+            "$match":
+            {
+                "_id": "analyst"
+            }
+        }
+    ]
+)
+for i in x:
+    print(i)
+```
+
+# 15 The lowest of the per-job average salary
+
+## Shell
+```json
+db.employees.aggregate(
+    [
+        {
+            $match:
+            {
+                job: { $exists: true }
+            }
+        },
+        {
+            $group:
+            {
+                _id: "$job",
+                avg: { $avg: "$salary" }
+            }
+        },
+        {
+            $group:
+            {
+                _id: "$department.name",
+                min: { $min: "$avg" }
+            }
+        },
+        {
+            $project:
+            {
+                _id: 0
+            }
+        }
+    ]
+)
+```
+
+## Python
+```python
+x = col.aggregate(
+    [
+        {
+            "$match":
+            {
+                "job": { "$exists": "true" }
+            }
+        },
+        {
+            "$group":
+            {
+                "_id": "$job",
+                "avg": { "$avg": "$salary" }
+            }
+        },
+        {
+            "$group":
+            {
+                "_id": "$department.name",
+                "min": { "$min":"$avg"}
+            }
+        },
+        {
+            "$project":
+            {
+                "_id": 0
+            }
+        }
+    ]
+)
+for i in x:
+    print(i)
+```
+
+# 16 For each department: its name and the highest salary in that department
+
+## Shell
+```json
+db.employees.aggregate(
+    [
+        {
+            $group:
+            {
+                _id: "$department.name",
+                max: { $max: "$salary" }
+            }
+        }
+    ]
+)
+```
+
+## Python
+```python
+x = col.aggregate(
+    [
+        {
+            "$group":
+            {
+                "_id": "$department.name",
+                "max": { "$max": "$salary" }
+            }
+        }
+    ]
+)
+for i in x:
+    print(i)
+```
+
+# 17 The number of employees
+
+## Shell
+```json
+db.employees.countDocuments({})
+```
+
+## Python
+```python
+x = col.count_documents({})
+print(x)
+```
+
+# 18 One of the employees, with pretty printing (2 methods)
+
+## Shell
+```json
+db.employees.findOne();
+db.employees.find().limit(1).pretty()
+```
+
+## Python
+```python
+x = col.find_one()
+print(x)
+x = col.find().limit(1)
+for i in x:
+    print(i)
+```
+
+# 19 All the information about employees, except their salary, commission and missions
+
+## Shell
+```json
+db.employees.find({}, { salary: 0, commission: 0, missions: 0 }).pretty()
+```
+
+## Python
+```python
+x = col.find({}, { "salary": 0, "commission": 0, "missions": 0 })
+for i in x:
+    print(i)
+```
+
+# 20 The name and salary of all the employees (without the field _id)
+
+## Shell
+```json
+db.employees.find({}, { _id: 0, name: 1, salary: 1 }).pretty()
+```
+
+## Python
+```python
+x = col.find({}, { "_id": 0, "name": 1, "salary": 1 })
+for i in x:
+    print(i)
+```
