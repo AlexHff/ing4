@@ -817,11 +817,13 @@ db.employees.find().limit(1).pretty()
 
 ## Python
 ```python
+import pprint
 x = col.find_one()
-print(x)
+pprint.PrettyPrinter(indent=2).pprint(x)
+
 x = col.find().limit(1)
 for i in x:
-    print(i)
+    pprint.PrettyPrinter(indent=2).pprint(i)
 ```
 
 # 19 All the information about employees, except their salary, commission and missions

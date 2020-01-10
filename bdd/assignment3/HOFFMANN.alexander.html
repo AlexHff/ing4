@@ -828,11 +828,13 @@ col <span class="pl-k">=</span> db[<span class="pl-s"><span class="pl-pds">'</sp
 db.employees.find().limit(<span class="pl-c1">1</span>).pretty()</pre></div>
 <h2>
 <a id="user-content-python-16" class="anchor" href="#python-16" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Python</h2>
-<div class="highlight highlight-source-python"><pre>x <span class="pl-k">=</span> col.find_one()
-<span class="pl-c1">print</span>(x)
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> pprint
+x <span class="pl-k">=</span> col.find_one()
+pprint.PrettyPrinter(<span class="pl-v">indent</span><span class="pl-k">=</span><span class="pl-c1">2</span>).pprint(x)
+
 x <span class="pl-k">=</span> col.find().limit(<span class="pl-c1">1</span>)
 <span class="pl-k">for</span> i <span class="pl-k">in</span> x:
-    <span class="pl-c1">print</span>(i)</pre></div>
+    pprint.PrettyPrinter(<span class="pl-v">indent</span><span class="pl-k">=</span><span class="pl-c1">2</span>).pprint(i)</pre></div>
 <h1>
 <a id="user-content-19-all-the-information-about-employees-except-their-salary-commission-and-missions" class="anchor" href="#19-all-the-information-about-employees-except-their-salary-commission-and-missions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>19 All the information about employees, except their salary, commission and missions</h1>
 <h2>
