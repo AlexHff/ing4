@@ -34,12 +34,11 @@ public class Main {
     }
 
     /**
-     * Checks whether all elements in the array pass the given predicate
-     * @param <T> - type of the elements in the array
-     * @param items - array containing elements to be checked
-     * @param tester - a predicate which returns tests elements
-     * @return true if all elements pass the tester
-     * @since 1.8
+     * Checks whether all elements in the array pass the given predicate.
+     * 
+     * @param items  array containing elements to be checked
+     * @param tester a predicate which returns tests elements
+     * @return       true if all elements pass the tester
      */
     private static <T> boolean checkItems(T[] items, Predicate<T> tester) {
         for (T item : items)
