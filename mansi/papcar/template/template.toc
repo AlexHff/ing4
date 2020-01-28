@@ -1,0 +1,8 @@
+\babel@toc {french}{}
+\beamer@sectionintoc {1}{La lettre du client m\IeC {\'e}content}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Les griefs relev\IeC {\'e}s par le client}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Dysfonctionnements dans l'entreprise}{4}{0}{1}
+\beamer@subsectionintoc {1}{3}{Axes d'am\IeC {\'e}lioration}{5}{0}{1}
+\beamer@sectionintoc {2}{Etude de la vente sur stock}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Processus de la vente sur stock}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Optimisation du processus}{8}{0}{2}
