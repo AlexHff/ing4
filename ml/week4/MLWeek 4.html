@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html dir="ltr" xml:lang="fr" class="yui3-js-enabled" id="yui_3_17_2_1_1580888461233_171" lang="fr"><head>
+    <title>ML Week 4</title>
+    <link rel="shortcut icon" href="https://pedago-ece.campusonline.me/theme/image.php/igreen/theme/1579265584/favicon">
+    <meta name="apple-itunes-app" content="app-id=633359593, app-argument=https://pedago-ece.campusonline.me/mod/quiz/attempt.php?attempt=63537&amp;cmid=75045"><link rel="manifest" href="https://pedago-ece.campusonline.me/admin/tool/mobile/mobile.webmanifest.php"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="keywords" content="moodle, ML Week 4">
+<link rel="stylesheet" type="text/css" href="MLWeek%204_files/yui_combo.css"><script async="" src="MLWeek%204_files/analytics.js"></script><script charset="utf-8" id="yui_3_17_2_1_1580888461233_8" src="MLWeek%204_files/yui_combo_003.js" async=""></script><script charset="utf-8" id="yui_3_17_2_1_1580888461233_18" src="MLWeek%204_files/flags.js" async=""></script><script charset="utf-8" id="yui_3_17_2_1_1580888461233_114" src="MLWeek%204_files/qengine.js" async=""></script><script charset="utf-8" id="yui_3_17_2_1_1580888461233_115" src="MLWeek%204_files/module.js" async=""></script><script charset="utf-8" id="yui_3_17_2_1_1580888461233_116" src="MLWeek%204_files/yui_combo.js" async=""></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="MLWeek%204_files/all.css">
+<script type="text/javascript">
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/pedago-ece.campusonline.me","sesskey":"PBJGqjzLYZ","themerev":"1579265584","slasharguments":1,"theme":"igreen","iconsystemmodule":"core\/icon_system_fontawesome","jsrev":"1579265584","admin":"admin","svgicons":true,"usertimezone":"Europe\/Paris","contextid":270823};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":false,"base":"https:\/\/pedago-ece.campusonline.me\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/pedago-ece.campusonline.me\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/pedago-ece.campusonline.me\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/pedago-ece.campusonline.me\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/pedago-ece.campusonline.me\/theme\/yui_combo.php?m\/1579265584\/","combine":true,"comboBase":"https:\/\/pedago-ece.campusonline.me\/theme\/yui_combo.php?","ext":false,"root":"m\/1579265584\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader","moodle-core-event"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-checknet":{"requires":["base-base","moodle-core-notification-alert","io-base"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-modchooser":{"requires":["moodle-core-chooserdialogue","moodle-course-coursebase"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-passwordunmask":{"requires":[]},"moodle-form-showadvanced":{"requires":["node","base","selector-css3"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-qbankmanager":{"requires":["node","selector-css3"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-qtype_ddimageortext-form":{"requires":["moodle-qtype_ddimageortext-dd","form_filepicker"]},"moodle-qtype_ddimageortext-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-qtype_ddmarker-form":{"requires":["moodle-qtype_ddmarker-dd","form_filepicker","graphics","escape"]},"moodle-qtype_ddmarker-dd":{"requires":["node","event-resize","dd","dd-drop","dd-constrain","graphics"]},"moodle-qtype_ddwtos-dd":{"requires":["node","dd","dd-drop","dd-constrain"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_bigbluebuttonbn-modform":{"requires":["base","node"]},"moodle-mod_forum-subscriptiontoggle":{"requires":["base-base","io-base"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-repaginate":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-randomquestion":{"requires":["base","event","node","io","moodle-core-notification-dialogue"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-quizquestionbank":{"requires":["base","event","node","io","io-form","yui-later","moodle-question-qbankmanager","moodle-core-notification-dialogue"]},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_html-button":{"requires":["moodle-editor_atto-plugin","event-valuechange"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin","moodle-form-shortforms"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"https:\/\/pedago-ece.campusonline.me\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/pedago-ece.campusonline.me\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1579265584\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/pedago-ece.campusonline.me\/lib\/javascript.php\/1579265584\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker","moodle-core-notification-dialogue"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/pedago-ece.campusonline.me\/lib\/javascript.php\/1579265584\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/mathjax\/2.7.1\/MathJax.js?delayStartupUntil=configured"},"core_question_flags":{"name":"core_question_flags","fullpath":"https:\/\/pedago-ece.campusonline.me\/lib\/javascript.php\/1579265584\/question\/flags.js","requires":["base","dom","event-delegate","io-base"]},"core_question_engine":{"name":"core_question_engine","fullpath":"https:\/\/pedago-ece.campusonline.me\/lib\/javascript.php\/1579265584\/question\/qengine.js","requires":["node","event"]},"mod_quiz":{"name":"mod_quiz","fullpath":"https:\/\/pedago-ece.campusonline.me\/lib\/javascript.php\/1579265584\/mod\/quiz\/module.js","requires":["base","dom","event-delegate","event-key","core_question_engine","moodle-core-formchangechecker"]}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55962599-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/x-mathjax-config">
+
+MathJax.Hub.Config({
+    config: ["Accessible.js", "Safe.js"],
+    errorSettings: { message: ["!"] },
+    skipStartupTypeset: true,
+    messageStyle: "none"
+});
+</script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="core/first" src="MLWeek%204_files/first.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jqueryprivate" src="MLWeek%204_files/jquery-private.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="MLWeek%204_files/jquery-3.js"></script></head>
+
+<body id="page-mod-quiz-attempt" class="format-topics  path-mod path-mod-quiz gecko dir-ltr lang-fr yui-skin-sam yui3-skin-sam pedago-ece-campusonline-me pagelayout-incourse course-2009 context-270823 cmid-75045 category-192  jsenabled">
+
+<div id="page-wrapper">
+
+    <div>
+    <a class="sr-only sr-only-focusable" href="#maincontent">Passer au contenu principal</a>
+</div><script type="text/javascript" src="MLWeek%204_files/yui_combo_002.js"></script><script type="text/javascript" src="MLWeek%204_files/javascript-static.js"></script>
+<script type="text/javascript" src="MLWeek%204_files/head.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+
+    <header role="banner" class="pos-f-t navbar navbar-full navbar-light bg-faded navbar-static-top moodle-has-zindex">
+    
+        <div class="container-fluid navbar-nav">
+    
+            <div data-region="drawer-toggle">
+                <button aria-expanded="false" aria-controls="nav-drawer" type="button" class="btn pull-xs-left m-r-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"><i class="icon fa fa-bars fa-fw " aria-hidden="true" aria-label=""></i><span class="sr-only">Panneau latéral</span></button>
+            </div>
+    
+            <a href="https://pedago-ece.campusonline.me/" class="navbar-brand has-logo
+                    ">
+                    <span class="logo hidden-xs-down">
+                        <img src="MLWeek%204_files/ECE_PARIS_retravail_Lyon_blanc.png" alt="ECE Paris">
+                    </span>
+                <span class="site-name hidden-sm-down">ECE Paris</span>
+            </a>
+            <!-- user_menu -->
+            <div class="usermenu"><div class="action-menu moodle-actionmenu nowrap-items" id="action-menu-1" data-enhance="moodle-core-actionmenu">
+
+        <div class="menubar" id="action-menu-1-menubar" role="menubar">
+
+            <div class="dropdown d-inline">
+    <a href="#" class=" dropdown-toggle" id="dropdown-1" title="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="userbutton"><span class="usertext">Alexander HOFFMANN</span><span class="avatars"><span class="avatar current"><img src="MLWeek%204_files/f2.jpeg" alt="Avatar Alexander HOFFMANN" title="Avatar Alexander HOFFMANN" class="userpicture" role="presentation" width="35" height="35"></span></span></span><b class="caret"></b></a>
+        <div class="dropdown-menu dropdown-menu-right menu  align-tr-br" id="action-menu-1-menu" data-rel="menu-content" aria-labelledby="action-menu-toggle-1" role="menu" data-align="tr-br">
+            <a href="https://pedago-ece.campusonline.me/my/" class="dropdown-item menu-action" role="menuitem" data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1"><i class="icon fa fa-tachometer fa-fw " aria-hidden="true" title="Tableau de bord" aria-label="Tableau de bord"></i><span class="menu-action-text" id="actionmenuaction-1">Tableau de bord</span></a><div class="dropdown-divider"></div><a href="https://pedago-ece.campusonline.me/user/profile.php?id=20082" class="dropdown-item menu-action" role="menuitem" data-title="profile,moodle" aria-labelledby="actionmenuaction-2"><i class="icon fa fa-user fa-fw " aria-hidden="true" title="Profil" aria-label="Profil"></i><span class="menu-action-text" id="actionmenuaction-2">Profil</span></a><a href="https://pedago-ece.campusonline.me/grade/report/overview/index.php" class="dropdown-item menu-action" role="menuitem" data-title="grades,grades" aria-labelledby="actionmenuaction-3"><i class="icon fa fa-table fa-fw " aria-hidden="true" title="Notes" aria-label="Notes"></i><span class="menu-action-text" id="actionmenuaction-3">Notes</span></a><a href="https://pedago-ece.campusonline.me/message/index.php" class="dropdown-item menu-action" role="menuitem" data-title="messages,message" aria-labelledby="actionmenuaction-4"><i class="icon fa fa-comment fa-fw " aria-hidden="true" title="Messages personnels" aria-label="Messages personnels"></i><span class="menu-action-text" id="actionmenuaction-4">Messages personnels</span></a><a href="https://pedago-ece.campusonline.me/user/preferences.php" class="dropdown-item menu-action" role="menuitem" data-title="preferences,moodle" aria-labelledby="actionmenuaction-5"><i class="icon fa fa-wrench fa-fw " aria-hidden="true" title="Préférences" aria-label="Préférences"></i><span class="menu-action-text" id="actionmenuaction-5">Préférences</span></a><div class="dropdown-divider"></div><a href="https://pedago-ece.campusonline.me/login/logout.php?sesskey=PBJGqjzLYZ" class="dropdown-item menu-action" role="menuitem" data-title="logout,moodle" aria-labelledby="actionmenuaction-6"><i class="icon fa fa-sign-out fa-fw " aria-hidden="true" title="Déconnexion" aria-label="Déconnexion"></i><span class="menu-action-text" id="actionmenuaction-6">Déconnexion</span></a>
+        </div>
+</div>
+
+
+        </div>
+
+</div></div>
+    
+            <!-- custom_menu -->
+            <div class="dropdown nav-item pull-xs-right m-r-2">
+            <a class="dropdown-toggle nav-link lang-pix" id="drop-down-5e3a718cd42a75e3a718cbfcd516" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                fr
+            </a>
+            <div class="dropdown-menu" aria-labelledby="drop-down-5e3a718cd42a75e3a718cbfcd516">
+                        <a class="dropdown-item" href="https://pedago-ece.campusonline.me/mod/quiz/attempt.php?attempt=63537&amp;cmid=75045&amp;lang=en" title="English ‎(en)‎">English ‎(en)‎</a>
+                        <a class="dropdown-item" href="https://pedago-ece.campusonline.me/mod/quiz/attempt.php?attempt=63537&amp;cmid=75045&amp;lang=fr" title="Français ‎(fr)‎">Français ‎(fr)‎</a>
+            </div>
+        </div>
+    
+            <!-- navbar_plugin_output -->
+            <div class="popover-region collapsed popover-region-notifications" id="nav-notification-popover-container" data-userid="20082" data-region="popover-region">
+    <div class="popover-region-toggle nav-link" data-region="popover-region-toggle" aria-role="button" aria-controls="popover-region-container-5e3a718cd49a45e3a718cbfcd517" aria-haspopup="true" aria-label="Afficher la fenêtre des notifications sans nouvelle notification" tabindex="0">
+                <i class="icon fa fa-bell fa-fw " aria-hidden="true" title="Ouvrir/fermer le menu notifications" aria-label="Ouvrir/fermer le menu notifications"></i>
+        <div class="count-container hidden" data-region="count-container"></div>
+
+    </div>
+    <div id="popover-region-container-5e3a718cd49a45e3a718cbfcd517" class="popover-region-container" data-region="popover-region-container" aria-expanded="false" aria-hidden="true" aria-label="Fenêtre de notification" role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Notifications</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <a class="mark-all-read-button" href="#" title="Tout marquer comme lu" data-action="mark-all-read" role="button">
+            <span class="normal-icon"><i class="icon fa fa-check fa-fw " aria-hidden="true" title="Tout marquer comme lu" aria-label="Tout marquer comme lu"></i></span>
+            <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="MLWeek%204_files/loading.gif"></span>
+        </a>
+        <a href="https://pedago-ece.campusonline.me/message/notificationpreferences.php?userid=20082" title="Préférences de notification">
+            <i class="icon fa fa-cog fa-fw " aria-hidden="true" title="Préférences de notification" aria-label="Préférences de notification"></i>
+        </a>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="all-notifications" data-region="all-notifications" role="log" aria-busy="false" aria-atomic="false" aria-relevant="additions"></div>
+        <div class="empty-message" tabindex="0" data-region="empty-message">Vous n'avez pas de notification</div>
+
+            </div>
+            <span class="loading-icon"><img class="icon " alt="Chargement" title="Chargement" src="MLWeek%204_files/loading.gif"></span>
+        </div>
+                <a class="see-all-link" href="https://pedago-ece.campusonline.me/message/output/popup/notifications.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">Tout afficher</div>
+                    </div>
+                </a>
+    </div>
+</div>
+    
+            <!-- search_box -->
+            <span class="hidden-md-down">
+                
+            </span>
+    
+            <nav class="nav navbar-nav hidden-md-down">
+                <!-- page_heading_menu -->
+                
+            </nav>
+        </div>
+    </header>
+    
+
+    <div id="page" class="container-fluid">
+        <header id="page-header" class="row inseec-header bg-base"><div class="col-xs-12"><div class="card"><div class="card-block"><div class="pull-xs-right context-header-settings-menu"></div><div class="pull-xs-left"><div class="breadcrumb-nav text-white"><nav role="navigation">
+    <ol class="breadcrumb">
+                <li class="breadcrumb-item">Mes cours</li>
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/course/view.php?id=2009" title="Machine learning">Machine learning</a></li>
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/course/view.php?id=2009#section-5">Section 5</a></li>
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/mod/quiz/view.php?id=75045" title="Test">ML Week 4</a></li>
+    </ol>
+</nav></div></div><div class="clearfix w-100 pull-xs-left" id="page-navbar"><div class="breadcrumb-nav"><nav role="navigation">
+    <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/course/view.php?id=2009" title="Machine learning">Machine learning</a></li>
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/course/view.php?id=2009#section-5">Section 5</a></li>
+                <li class="breadcrumb-item"><a href="https://pedago-ece.campusonline.me/mod/quiz/view.php?id=75045" title="Test">ML Week 4</a></li>
+    </ol>
+</nav></div><div class="breadcrumb-button pull-xs-right"></div></div><div id="course-header"></div></div></div></div></header>
+
+        <div id="page-content" class="row">
+            <div id="region-main-box" class="col-xs-12">
+                <section id="region-main" class="has-blocks">
+                    <div class="card card-block" id="yui_3_17_2_1_1580888461233_159">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main" id="yui_3_17_2_1_1580888461233_158"><span id="maincontent"></span><form action="https://pedago-ece.campusonline.me/mod/quiz/processattempt.php?cmid=75045" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="responseform" autocomplete="off"><div id="yui_3_17_2_1_1580888461233_157"><div id="q1" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">1</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_24"><input type="hidden" name="q65885:1_:flagged" value="0"><input type="hidden" value="qaid=604610&amp;qubaid=65885&amp;qid=52843&amp;slot=1&amp;checksum=74d2d04ab866316065668cc339c0a354&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:1_:flaggedcheckbox" name="q65885:1_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_190"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_189"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:1_:sequencecheck" value="1"><div class="qtext"><p><span>Which of the following is a widely used and effective machine learning algorithm based on the idea of bagging?</span></p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_188"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_187"><div class="r0"><input type="radio" name="q65885:1_answer" value="0" id="q65885:1_answer0"><label for="q65885:1_answer0" class="m-l-1">a. Decision Tree</label> </div>
+<div class="r1"><input type="radio" name="q65885:1_answer" value="1" id="q65885:1_answer1"><label for="q65885:1_answer1" class="m-l-1">b. Regression</label> </div>
+<div class="r0" id="yui_3_17_2_1_1580888461233_186"><input type="radio" name="q65885:1_answer" value="2" id="q65885:1_answer2" checked="checked"><label for="q65885:1_answer2" class="m-l-1" id="yui_3_17_2_1_1580888461233_185">c. Random Forest</label> </div>
+<div class="r1"><input type="radio" name="q65885:1_answer" value="3" id="q65885:1_answer3"><label for="q65885:1_answer3" class="m-l-1">d. Classification</label> </div>
+</div></div></div></div></div><div id="q2" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">2</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_33"><input type="hidden" name="q65885:2_:flagged" value="0"><input type="hidden" value="qaid=604611&amp;qubaid=65885&amp;qid=52844&amp;slot=2&amp;checksum=05a5f09e667f284158464b0f1666efc2&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:2_:flaggedcheckbox" name="q65885:2_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_193"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_192"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:2_:sequencecheck" value="1"><div class="qtext"><p><span>Which of the following is a disadvantage of decision trees?</span></p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_198"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_197"><div class="r0"><input type="radio" name="q65885:2_answer" value="0" id="q65885:2_answer0"><label for="q65885:2_answer0" class="m-l-1">a. Decision trees are too intuitive</label> </div>
+<div class="r1"><input type="radio" name="q65885:2_answer" value="1" id="q65885:2_answer1"><label for="q65885:2_answer1" class="m-l-1">b. <span>Decision trees are robust to outliers</span></label> </div>
+<div class="r0" id="yui_3_17_2_1_1580888461233_196"><input type="radio" name="q65885:2_answer" value="2" id="q65885:2_answer2" checked="checked"><label for="q65885:2_answer2" class="m-l-1" id="yui_3_17_2_1_1580888461233_195">c. <span id="yui_3_17_2_1_1580888461233_194">Decision trees are prone to be overfit</span></label> </div>
+<div class="r1"><input type="radio" name="q65885:2_answer" value="3" id="q65885:2_answer3"><label for="q65885:2_answer3" class="m-l-1">d. None of the above</label> </div>
+</div></div></div></div></div><div id="q3" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">3</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_42"><input type="hidden" name="q65885:3_:flagged" value="0"><input type="hidden" value="qaid=604612&amp;qubaid=65885&amp;qid=52845&amp;slot=3&amp;checksum=05ff3f3f731414eacac25c4aaa32c161&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:3_:flaggedcheckbox" name="q65885:3_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_238"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_237"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:3_:sequencecheck" value="1"><div class="qtext"><p>Select the true statement(s) about Random Forests listed below:</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_236"><div class="prompt">Veuillez choisir au moins une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_235"><div class="r0"><input type="hidden" name="q65885:3_choice0" value="0"><input type="checkbox" name="q65885:3_choice0" value="1" id="q65885:3_choice0"><label for="q65885:3_choice0" class="m-l-1">a. Random Forests are an utilization of Boosting</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_234"><input type="hidden" name="q65885:3_choice1" value="0"><input type="checkbox" name="q65885:3_choice1" value="1" id="q65885:3_choice1" checked="checked"><label for="q65885:3_choice1" class="m-l-1" id="yui_3_17_2_1_1580888461233_233">b. In random forests, we can end up with twice the same data in a bag because of the idea of replacement</label> </div>
+<div class="r0"><input type="hidden" name="q65885:3_choice2" value="0"><input type="checkbox" name="q65885:3_choice2" value="1" id="q65885:3_choice2"><label for="q65885:3_choice2" class="m-l-1">c. In random forests, each tree is independent</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_241"><input type="hidden" name="q65885:3_choice3" value="0"><input type="checkbox" name="q65885:3_choice3" value="1" id="q65885:3_choice3" checked="checked"><label for="q65885:3_choice3" class="m-l-1" id="yui_3_17_2_1_1580888461233_240">d. In random forests, the more trees we have, the better it is for the score</label> </div>
+</div></div></div></div></div><div id="q4" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">4</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_51"><input type="hidden" name="q65885:4_:flagged" value="0"><input type="hidden" value="qaid=604613&amp;qubaid=65885&amp;qid=52846&amp;slot=4&amp;checksum=02d90b232db58fa62b51c3e2a71d52e3&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:4_:flaggedcheckbox" name="q65885:4_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_205"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_204"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:4_:sequencecheck" value="1"><div class="qtext"><p>How do we know which variable to use for splitting?</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_203"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_202"><div class="r0"><input type="radio" name="q65885:4_answer" value="0" id="q65885:4_answer0"><label for="q65885:4_answer0" class="m-l-1">a. We do it at random</label> </div>
+<div class="r1"><input type="radio" name="q65885:4_answer" value="1" id="q65885:4_answer1"><label for="q65885:4_answer1" class="m-l-1">b. I have no idea, leave me alone</label> </div>
+<div class="r0" id="yui_3_17_2_1_1580888461233_201"><input type="radio" name="q65885:4_answer" value="2" id="q65885:4_answer2"><label for="q65885:4_answer2" class="m-l-1" id="yui_3_17_2_1_1580888461233_200">c. We tell the algorithm which features we want to use in a specific order</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_208"><input type="radio" name="q65885:4_answer" value="3" id="q65885:4_answer3" checked="checked"><label for="q65885:4_answer3" class="m-l-1" id="yui_3_17_2_1_1580888461233_207">d. We use Information Gain and Entropy (or similar) to detect the purest features</label> </div>
+</div></div></div></div></div><div id="q5" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">5</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_60"><input type="hidden" name="q65885:5_:flagged" value="0"><input type="hidden" value="qaid=604614&amp;qubaid=65885&amp;qid=52847&amp;slot=5&amp;checksum=65e161434ad20fa345961392221b5379&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:5_:flaggedcheckbox" name="q65885:5_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_215"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_214"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:5_:sequencecheck" value="1"><div class="qtext"><p>Imagine we are training a decision tree and we are at a node (before a split).</p>
+<p>Suppose we have 2 features x1 and x2 and a label y that can take the value of (+1) or (-1).</p>
+<p><img src="MLWeek%204_files/Capture%2520dcran%25202020-01-29%2520%252018.png" alt="" width="251" height="168"></p>
+<p>&nbsp;</p>
+<p>Which feature results in the best split?</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_213"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_212"><div class="r0"><input type="radio" name="q65885:5_answer" value="0" id="q65885:5_answer0"><label for="q65885:5_answer0" class="m-l-1">a. x1</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_211"><input type="radio" name="q65885:5_answer" value="1" id="q65885:5_answer1" checked="checked"><label for="q65885:5_answer1" class="m-l-1" id="yui_3_17_2_1_1580888461233_210">b. x2</label> </div>
+</div></div></div></div></div><div id="q6" class="que truefalse deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">6</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_69"><input type="hidden" name="q65885:6_:flagged" value="0"><input type="hidden" value="qaid=604615&amp;qubaid=65885&amp;qid=52848&amp;slot=6&amp;checksum=ed49c49d0a5678a75cfe0c7fdd9cf43f&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:6_:flaggedcheckbox" name="q65885:6_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_156"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_155"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:6_:sequencecheck" value="1"><div class="qtext"><p>Decision Tree (with depth&gt;1) is always a linear classifier</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_154"><div class="prompt">Sélectionnez une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_153"><div class="r0" id="yui_3_17_2_1_1580888461233_173"><input type="radio" name="q65885:6_answer" value="1" id="q65885:6_answertrue"><label for="q65885:6_answertrue" class="m-l-1" id="yui_3_17_2_1_1580888461233_172">Vrai</label> </div><div class="r1" id="yui_3_17_2_1_1580888461233_152"><input type="radio" name="q65885:6_answer" value="0" id="q65885:6_answerfalse" checked="checked"><label for="q65885:6_answerfalse" class="m-l-1" id="yui_3_17_2_1_1580888461233_151">Faux</label> </div></div></div></div></div></div><div id="q7" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">7</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_78"><input type="hidden" name="q65885:7_:flagged" value="0"><input type="hidden" value="qaid=604616&amp;qubaid=65885&amp;qid=52849&amp;slot=7&amp;checksum=70b99c889cbd0281ac3bf1ce3441347f&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:7_:flaggedcheckbox" name="q65885:7_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_247"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_246"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:7_:sequencecheck" value="1"><div class="qtext"><p>Say we are using Adaboost and need to decide the amount of say of a weak classifier that has 50% correct predictions.</p>
+<p><strong>The amount of say of this stump will be:</strong></p>
+<p><img src="MLWeek%204_files/Capture%252520dcran%2525202020-01-29%252520%25252018_002.png" alt="" width="171" height="228"></p>
+<p>&nbsp;</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_245"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_244"><div class="r0" id="yui_3_17_2_1_1580888461233_249"><input type="radio" name="q65885:7_answer" value="0" id="q65885:7_answer0"><label for="q65885:7_answer0" class="m-l-1">a. A negative number</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_243"><input type="radio" name="q65885:7_answer" value="1" id="q65885:7_answer1"><label for="q65885:7_answer1" class="m-l-1">b. None of the listed</label> </div>
+<div class="r0"><input type="radio" name="q65885:7_answer" value="2" id="q65885:7_answer2"><label for="q65885:7_answer2" class="m-l-1">c. 0</label> </div>
+<div class="r1" id="yui_3_17_2_1_1580888461233_254"><input type="radio" name="q65885:7_answer" value="3" id="q65885:7_answer3" checked="checked"><label for="q65885:7_answer3" class="m-l-1" id="yui_3_17_2_1_1580888461233_253">d. A positive number</label> </div>
+</div></div></div></div></div><div id="q8" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">8</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_87"><input type="hidden" name="q65885:8_:flagged" value="0"><input type="hidden" value="qaid=604617&amp;qubaid=65885&amp;qid=52850&amp;slot=8&amp;checksum=6b11d3eeab308c4aebc6c9b7990e12ee&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:8_:flaggedcheckbox" name="q65885:8_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_222"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_221"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:8_:sequencecheck" value="1"><div class="qtext"><p>What was the purpose of Grid Search CV?</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_220"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_219"><div class="r0" id="yui_3_17_2_1_1580888461233_218"><input type="radio" name="q65885:8_answer" value="0" id="q65885:8_answer0" checked="checked"><label for="q65885:8_answer0" class="m-l-1" id="yui_3_17_2_1_1580888461233_217">a. All of the above</label> </div>
+<div class="r1"><input type="radio" name="q65885:8_answer" value="1" id="q65885:8_answer1"><label for="q65885:8_answer1" class="m-l-1">b. To search for optimal parameters in a logistic or linear regression</label> </div>
+<div class="r0"><input type="radio" name="q65885:8_answer" value="2" id="q65885:8_answer2"><label for="q65885:8_answer2" class="m-l-1">c. To test between multiple parameters and output the best one given a specific algorithm (SVM, Decision Tree, ...)</label> </div>
+<div class="r1"><input type="radio" name="q65885:8_answer" value="3" id="q65885:8_answer3"><label for="q65885:8_answer3" class="m-l-1">d. To search for the best variable to split in a decision tree</label> </div>
+</div></div></div></div></div><div id="q9" class="que multichoice deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">9</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_96"><input type="hidden" name="q65885:9_:flagged" value="0"><input type="hidden" value="qaid=604618&amp;qubaid=65885&amp;qid=52851&amp;slot=9&amp;checksum=7df232e49dd71f94fa374acfec750cd9&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:9_:flaggedcheckbox" name="q65885:9_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_227"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_226"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:9_:sequencecheck" value="1"><div class="qtext" id="yui_3_17_2_1_1580888461233_225"><p id="yui_3_17_2_1_1580888461233_224">What
+ will a decision tree do if we are at a node of 43 elements, there are 
+still features to split, and the min_samples_split value is set to 2?</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_231"><div class="prompt">Veuillez choisir une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_230"><div class="r0"><input type="radio" name="q65885:9_answer" value="0" id="q65885:9_answer0"><label for="q65885:9_answer0" class="m-l-1">a. Stop splitting this branch</label> </div>
+<div class="r1"><input type="radio" name="q65885:9_answer" value="1" id="q65885:9_answer1"><label for="q65885:9_answer1" class="m-l-1">b. Split this branch, but only once more</label> </div>
+<div class="r0" id="yui_3_17_2_1_1580888461233_229"><input type="radio" name="q65885:9_answer" value="2" id="q65885:9_answer2" checked="checked"><label for="q65885:9_answer2" class="m-l-1" id="yui_3_17_2_1_1580888461233_228">c. Keep Splitting this branch</label> </div>
+<div class="r1"><input type="radio" name="q65885:9_answer" value="3" id="q65885:9_answer3"><label for="q65885:9_answer3" class="m-l-1">d. None of the listed</label> </div>
+</div></div></div></div></div><div id="q10" class="que truefalse deferredfeedback notyetanswered"><div class="info"><h3 class="no">Question <span class="qno">10</span></h3><div class="state">Pas encore répondu</div><div class="grade">Noté sur 2,00</div><div class="questionflag editable" aria-atomic="true" aria-relevant="text" aria-live="assertive" id="yui_3_17_2_1_1580888461233_105"><input type="hidden" name="q65885:10_:flagged" value="0"><input type="hidden" value="qaid=604619&amp;qubaid=65885&amp;qid=52852&amp;slot=10&amp;checksum=9c7ba1b9325fae63f23411259d3ddf38&amp;sesskey=PBJGqjzLYZ&amp;newstate=" class="questionflagpostdata">
+<input type="hidden" class="questionflagvalue" id="q65885:10_:flaggedcheckbox" name="q65885:10_:flagged" value="0"><input type="image" class="questionflagimage" src="MLWeek%204_files/unflagged.png" title="Marquer cette question pour référence" alt="Non marquée"><span class="questionflagtext" title="Marquer cette question pour référence">Marquer la question</span></div></div><div class="content" id="yui_3_17_2_1_1580888461233_183"><div class="formulation clearfix" id="yui_3_17_2_1_1580888461233_182"><h4 class="accesshide">Texte de la question</h4><input type="hidden" name="q65885:10_:sequencecheck" value="1"><div class="qtext" id="yui_3_17_2_1_1580888461233_252"><p id="yui_3_17_2_1_1580888461233_251">The deeper a decision tree, the more it is prone to overfitting</p></div><div class="ablock" id="yui_3_17_2_1_1580888461233_181"><div class="prompt">Sélectionnez une réponse&nbsp;:</div><div class="answer" id="yui_3_17_2_1_1580888461233_180"><div class="r0" id="yui_3_17_2_1_1580888461233_179"><input type="radio" name="q65885:10_answer" value="1" id="q65885:10_answertrue" checked="checked"><label for="q65885:10_answertrue" class="m-l-1" id="yui_3_17_2_1_1580888461233_178">Vrai</label> </div><div class="r1"><input type="radio" name="q65885:10_answer" value="0" id="q65885:10_answerfalse"><label for="q65885:10_answerfalse" class="m-l-1">Faux</label> </div></div></div></div></div></div><div class="submitbtns"><input type="submit" name="next" value="Terminer le test…" class="mod_quiz-next-nav btn btn-primary"></div><input type="hidden" name="attempt" value="63537"><input type="hidden" name="thispage" value="0" id="followingpage"><input type="hidden" name="nextpage" value="-1"><input type="hidden" name="timeup" value="0" id="timeup"><input type="hidden" name="sesskey" value="PBJGqjzLYZ"><input type="hidden" name="scrollpos" value="" id="scrollpos"><input type="hidden" name="slots" value="1,2,3,4,5,6,7,8,9,10"></div></form><div id="connection-error" style="display: none;" role="alert"><p>Connexion réseau perdue (échec de l'enregistrement automatique).</p>
+
+<p>Veuillez prendre note de toutes les réponses que vous avez saisies 
+sur cette page au cours des quelques dernières minutes, puis essayez de 
+vous reconnecter.</p>
+
+<p>Une fois la connexion rétablie, vos réponses devraient être enregistrées et ce message disparaîtra.</p>
+</div><div id="connection-ok" style="display: none;" role="alert"><p>Connexion réseau rétablie. Vous pouvez continuer.</p>
+</div></div>
+                        
+                    </div>
+                </section>
+                    <section data-region="blocks-column" class="hidden-print">
+                        <aside id="block-region-side-pre" class="block-region" data-blockregion="side-pre" data-droptarget="1"><a href="#sb-1" class="sr-only sr-only-focusable">Passer &lt;span id="mod_quiz_navblock_title"&gt;Navigation du test&lt;/span&gt;</a>
+
+<aside id="mod_quiz_navblock" class=" block block__fake  card m-b-1" role="navigation" data-block="_fake" aria-labelledby="instance-0-header">
+
+    <div class="card-block">
+
+
+            <h3 id="instance-0-header" class="card-title"><span id="mod_quiz_navblock_title">Navigation du test</span></h3>
+
+        <div class="card-text content">
+            <div class="qn_buttons clearfix multipages"><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton1" title="Pas encore répondu" data-quiz-page="0" href="#"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>1<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton2" title="Pas encore répondu" data-quiz-page="0" href="#q2"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>2<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton3" title="Pas encore répondu" data-quiz-page="0" href="#q3"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>3<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton4" title="Pas encore répondu" data-quiz-page="0" href="#q4"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>4<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton5" title="Pas encore répondu" data-quiz-page="0" href="#q5"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>5<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton6" title="Pas encore répondu" data-quiz-page="0" href="#q6"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>6<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton7" title="Pas encore répondu" data-quiz-page="0" href="#q7"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>7<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton8" title="Pas encore répondu" data-quiz-page="0" href="#q8"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>8<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton9" title="Pas encore répondu" data-quiz-page="0" href="#q9"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>9<span class="accesshide"> Cette page <span class="flagstate"></span></span></a><a class="qnbutton notyetanswered free btn btn-secondary thispage" id="quiznavbutton10" title="Pas encore répondu" data-quiz-page="0" href="#q10"><span class="thispageholder"></span><span class="trafficlight"></span><span class="accesshide">Question </span>10<span class="accesshide"> Cette page <span class="flagstate"></span></span></a></div><div class="othernav"><a class="endtestlink" href="https://pedago-ece.campusonline.me/mod/quiz/summary.php?attempt=63537&amp;cmid=75045">Terminer le test…</a><div id="quiz-timer" role="timer" aria-atomic="true" aria-relevant="text" style="display: block;">Temps restant <span id="quiz-time-left">0:21:42</span></div></div>
+            <div class="footer"></div>
+            
+        </div>
+
+    </div>
+
+</aside>
+
+  <span id="sb-1"></span></aside>
+                    </section>
+            </div>
+        </div>
+    </div>
+    <div id="nav-drawer" data-region="drawer" class="hidden-print moodle-has-zindex closed" aria-hidden="true" tabindex="-1">
+        <nav class="list-group">
+        </nav>
+        <nav class="list-group m-t-1">
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/my/" data-key="myhome">
+                <div class="m-l-0">
+                        Tableau de bord
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/user/files.php" data-key="privatefiles">
+                <div class="m-l-0">
+                        Fichiers personnels
+                </div>
+            </a>
+        </nav>
+        <nav class="list-group m-t-1">
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/my/" data-key="mycourses">
+                <div class="m-l-0">
+                        Mes cours
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=593" data-key="593">
+                <div class="m-l-1">
+                        Projet d'informatique 1
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=257" data-key="257">
+                <div class="m-l-1">
+                        English 7
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=259" data-key="259">
+                <div class="m-l-1">
+                        Management d'équipes
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=17" data-key="17">
+                <div class="m-l-1">
+                        Projet Pluridisciplinaire en Equipe
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=258" data-key="258">
+                <div class="m-l-1">
+                        English 8
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=1264" data-key="1264">
+                <div class="m-l-1">
+                        ING4
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=3160" data-key="3160">
+                <div class="m-l-1">
+                        Stage ING4 Technique
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=119" data-key="119">
+                <div class="m-l-1">
+                        ING4 Majeure Systèmes d'Information
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=4689" data-key="4689">
+                <div class="m-l-1">
+                        DevOps and SRE
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=22" data-key="22">
+                <div class="m-l-1">
+                        Technologies web
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=19" data-key="19">
+                <div class="m-l-1">
+                        Bases de données av. (SI)
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=1250" data-key="1250">
+                <div class="m-l-1">
+                        Réseaux informatiques 1 (SI)
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=122" data-key="122">
+                <div class="m-l-1">
+                        Systèmes d'exploitation
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=3112" data-key="3112">
+                <div class="m-l-1">
+                        Infrastructure IT
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=2010" data-key="2010">
+                <div class="m-l-1">
+                        Mathematics for data scientist
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=121" data-key="121">
+                <div class="m-l-1">
+                        Java avancé (SI)
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=2009" data-key="2009">
+                <div class="m-l-1">
+                        Machine learning
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=1251" data-key="1251">
+                <div class="m-l-1">
+                        Sécurité Réseaux Informatiques
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=292" data-key="292">
+                <div class="m-l-1">
+                        Management des SI
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=278" data-key="278">
+                <div class="m-l-1">
+                        Ingénierie d'affaires 1
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=4814" data-key="4814">
+                <div class="m-l-1">
+                        Espagnol S2 (2.1)
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=944" data-key="944">
+                <div class="m-l-1">
+                        Valorisation Concours
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=940" data-key="940">
+                <div class="m-l-1">
+                        Valorisation Startup
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=1673" data-key="1673">
+                <div class="m-l-1">
+                        Réunion avec les délégués
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=1671" data-key="1671">
+                <div class="m-l-1">
+                        Amphi d'information
+                </div>
+            </a>
+            <a class="list-group-item list-group-item-action " href="https://pedago-ece.campusonline.me/course/view.php?id=2140" data-key="2140">
+                <div class="m-l-1">
+                        Expérience Internationale et doubles diplômes Cycle M
+                </div>
+            </a>
+        </nav>
+    </div>
+</div><div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important" class=""></div>
+<footer id="page-footer" class="navbar-fixed-bottom p-y-1">
+    <div class="row">
+        <div id="footer-copy" class="col-md-2 col-sm-2">
+            © 2014-2020 <span class="text-bold">INSEEC U</span>
+        </div>
+        <div id="footer-mobile" class="col-md-2 col-sm-2">
+            <div class="row">
+                <div class="col-md-12">
+                    Télécharger les applications mobiles
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="mobileapps">
+                        <ul class="socials list-unstyled">
+                            <li class="d-inline-block m-r-1"><a href="https://itunes.apple.com/fr/app/moodle/id633359593"><i class="fa fa-apple" title="iPhone/iPad (App Store)" aria-label="iPhone/iPad (App Store)"></i></a></li>
+                            <li class="d-inline-block m-r-1"><a href="https://play.google.com/store/apps/details?id=com.moodle.moodlemobile"><i class="fa fa-android" title="Android (Google Play)" aria-label="Android (Google Play)"></i></a></li>
+                            <li class="d-inline-block m-r-1"><a href="http://www.windowsphone.com/en-us/store/app/moodlemobile/d0732b88-3c6d-4127-8f24-3fca2452a4dc"><i class="fa fa-windows" title="Windows Mobile" aria-label="Windows Mobile"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer-inseec" class="col-md-4 col-sm-4">
+            <img src="MLWeek%204_files/logo_inseec_long_bleu.svg" alt="" style="width: 50%;">
+        </div>
+        <div id="legal-footer" class="col-md-4 col-sm-4">
+            <span id="legal-footer-text">Données personnelles et mentions légales</span>
+        </div>
+    </div>
+    <script type="text/javascript">
+//<![CDATA[
+var require = {
+    baseUrl : 'https://pedago-ece.campusonline.me/lib/requirejs.php/1579265584/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://pedago-ece.campusonline.me/lib/javascript.php/1579265584/lib/jquery/jquery-3.1.0.min',
+        jqueryui: 'https://pedago-ece.campusonline.me/lib/javascript.php/1579265584/lib/jquery/ui-1.12.1/jquery-ui.min',
+        jqueryprivate: 'https://pedago-ece.campusonline.me/lib/javascript.php/1579265584/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script type="text/javascript" src="MLWeek%204_files/require.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+require(['core/first'], function() {
+;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp(function(videojs) {
+        videojs.options.flash.swf = "https://pedago-ece.campusonline.me/media/player/videojs/videojs/video-js.swf";
+videojs.addLanguage("fr",{
+ "Play": "Lecture",
+ "Pause": "Pause",
+ "Current Time": "Temps actuel",
+ "Duration Time": "Durée",
+ "Remaining Time": "Temps restant",
+ "Stream Type": "Type de flux",
+ "LIVE": "EN DIRECT",
+ "Loaded": "Chargé",
+ "Progress": "Progression",
+ "Fullscreen": "Plein écran",
+ "Non-Fullscreen": "Fenêtré",
+ "Mute": "Sourdine",
+ "Unmute": "Son activé",
+ "Playback Rate": "Vitesse de lecture",
+ "Subtitles": "Sous-titres",
+ "subtitles off": "Sous-titres désactivés",
+ "Captions": "Sous-titres transcrits",
+ "captions off": "Sous-titres transcrits désactivés",
+ "Chapters": "Chapitres",
+ "Close Modal Dialog": "Fermer la boîte de dialogue modale",
+ "Descriptions": "Descriptions",
+ "descriptions off": "descriptions désactivées",
+ "Audio Track": "Piste audio",
+ "You aborted the media playback": "Vous avez interrompu la lecture de la vidéo.",
+ "A network error caused the media download to fail part-way.": "Une erreur de réseau a interrompu le téléchargement de la vidéo.",
+ "The media could not be loaded, either because the server or network failed or because the format is not supported.": "Cette vidéo n'a pas pu être chargée, soit parce que le serveur ou le réseau a échoué ou parce que le format n'est pas reconnu.",
+ "The media playback was aborted due to a corruption problem or because the media used features your browser did not support.": "La lecture de la vidéo a été interrompue à cause d'un problème de corruption ou parce que la vidéo utilise des fonctionnalités non prises en charge par votre navigateur.",
+ "No compatible source was found for this media.": "Aucune source compatible n'a été trouvée pour cette vidéo.",
+ "The media is encrypted and we do not have the keys to decrypt it.": "Le média est chiffré et nous n'avons pas les clés pour le déchiffrer.",
+ "Play Video": "Lire la vidéo",
+ "Close": "Fermer",
+ "Modal Window": "Fenêtre modale",
+ "This is a modal window": "Ceci est une fenêtre modale",
+ "This modal can be closed by pressing the Escape key or activating the close button.": "Ce modal peut être fermé en appuyant sur la touche Échap ou activer le bouton de fermeture.",
+ ", opens captions settings dialog": ", ouvrir les paramètres des sous-titres transcrits",
+ ", opens subtitles settings dialog": ", ouvrir les paramètres des sous-titres",
+ ", opens descriptions settings dialog": ", ouvrir les paramètres des descriptions",
+ ", selected": ", sélectionné"
+});
+
+    });
+});;
+
+require(['jquery'], function($) {
+    $('#single_select5e3a718cbfcd515').change(function() {
+        var ignore = $(this).find(':selected').attr('data-ignore');
+        if (typeof ignore === typeof undefined) {
+            $('#single_select_f5e3a718cbfcd514').submit();
+        }
+    });
+});
+;
+
+require(['jquery', 'message_popup/notification_popover_controller'], function($, controller) {
+    var container = $('#nav-notification-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+    require(['theme_boost/loader']);
+    require(['theme_boost/drawer'], function(mod) {
+    mod.init();
+    });
+;
+require(["filter_oembed/oembed"], function(amd) { amd.init(); });;
+require(["core/notification"], function(amd) { amd.init(270823, []); });;
+require(["core/log"], function(amd) { amd.setConfig({"level":"warn"}); });
+});
+//]]>
+</script>
+<script type="text/javascript" src="MLWeek%204_files/footer.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"Modifi\u00e9 le","name":"Nom","error":"Erreur","info":"Information","yes":"Oui","no":"Non","cancel":"Annuler","changesmadereallygoaway":"Vous avez effectu\u00e9 des modifications. Voulez-vous vraiment quitter cette page et perdre vos modifications\u00a0?","confirm":"Confirmer","areyousure":"En \u00eates-vous bien s\u00fbr\u00a0?","closebuttontitle":"Fermer","unknownerror":"Erreur inconnue"},"repository":{"type":"Type","size":"Taille","invalidjson":"Cha\u00eene JSON non valide","nofilesattached":"Aucun fichier joint","filepicker":"S\u00e9lecteur de fichiers","logout":"D\u00e9connexion","nofilesavailable":"Aucun fichier disponible","norepositoriesavailable":"D\u00e9sol\u00e9, aucun de vos d\u00e9p\u00f4ts actuels ne peut retourner de fichiers dans le format requis.","fileexistsdialogheader":"Le fichier existe","fileexistsdialog_editor":"Un fichier de ce nom a d\u00e9j\u00e0 \u00e9t\u00e9 joint au texte que vous modifiez.","fileexistsdialog_filemanager":"Un fichier de ce nom a d\u00e9j\u00e0 \u00e9t\u00e9 joint","renameto":"Renommer \u00e0 \u00ab\u00a0{$a}\u00a0\u00bb","referencesexist":"Ce fichier est utilis\u00e9 comme source par {$a} alias.","select":"S\u00e9lectionnez"},"admin":{"confirmdeletecomments":"Voulez-vous vraiment supprimer des commentaires\u00a0?","confirmation":"Confirmation"},"question":{"flagged":"Marqu\u00e9e"},"quiz":{"functiondisabledbysecuremode":"Cette fonctionnalit\u00e9 est actuellement d\u00e9sactiv\u00e9e","startattempt":"D\u00e9marrer une tentative","timesup":"Le chrono est enclench\u00e9\u00a0!"}};
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+(function() {Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\n\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"fr"});
+});
+ M.util.js_pending('random5e3a718cbfcd51'); Y.use('core_question_flags', function(Y) { M.core_question_flags.init(Y, "https:\/\/pedago-ece.campusonline.me\/question\/toggleflag.php", [{"src":"https:\/\/pedago-ece.campusonline.me\/theme\/image.php\/igreen\/core\/1579265584\/i\/unflagged","title":"Marquer cette question pour r\u00e9f\u00e9rence","alt":"Non marqu\u00e9e"},{"src":"https:\/\/pedago-ece.campusonline.me\/theme\/image.php\/igreen\/core\/1579265584\/i\/flagged","title":"Retirer la marque","alt":"Marqu\u00e9e"}], ["Marquer la question","Retirer la marque"]);  M.util.js_complete('random5e3a718cbfcd51'); });
+ M.util.js_pending('random5e3a718cbfcd52'); Y.use('mod_quiz', function(Y) { M.mod_quiz.init_attempt_form(Y);  M.util.js_complete('random5e3a718cbfcd52'); });
+ M.util.js_pending('random5e3a718cbfcd53'); Y.use('mod_quiz', function(Y) { M.mod_quiz.timer.init(Y, 2040, false);  M.util.js_complete('random5e3a718cbfcd53'); });
+ M.util.js_pending('random5e3a718cbfcd54'); Y.use('mod_quiz', function(Y) { M.mod_quiz.nav.init(Y);  M.util.js_complete('random5e3a718cbfcd54'); });
+M.util.help_popups.setup(Y);
+ M.util.js_pending('random5e3a718cbfcd518'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5e3a718cbfcd518'); });
+})();
+//]]>
+</script>
+
+</footer>
+
+</body></html>
