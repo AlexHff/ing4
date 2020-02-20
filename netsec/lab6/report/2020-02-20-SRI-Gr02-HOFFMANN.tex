@@ -138,7 +138,12 @@ openssl dgst -sha1 secret.key
 openssl rsault -decrypt -inkey privB.key -in secret.key -out sym.key
 openssl enc -aes-128-cbc -d -base64 -kfile sym.key -in ciphertext.txt -out plaintext.txt
 \end{verbatim}
-Here is the result on the other machine:
-\includegraphics[scale=0.6]{resources/4.png}
+Here is the result on the other machine:\\\\
+\includegraphics[scale=0.9]{resources/4.png}
+
+\textbf{d.} Advantages\\
+- encrypted data can be transferred on the link even if there is a possibility that the data will be intercepted\\
+- only a user who possesses the secret key can decrypt a message\\
+- the receiver can be sure of the identity of the sender because only both of them have the private key.
 
 \end{document}
