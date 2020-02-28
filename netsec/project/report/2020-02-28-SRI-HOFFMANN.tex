@@ -41,6 +41,15 @@ Due to degradation in the availability of new IPv4 addresses, some of the commun
 
 This paper discusses the depletion of IPv4 addresses. The paper also reviews replacement strategies. Currently, IPv6 is the most widely cited replacement candidate for IPv4. This document analyses IPv6 as an example replacement and goes over technical and security components of IPv6.
 
+\section{Internet Addressing}
+The Internet Protocol (IP) is the dominant network protocol upon which many applications run.  This involves everything from Web browsing, to the stability of data communication, to the bandwidth efficient nature of broadband communications. There are many communication protocols, the most common of which are TCP and UDP. All of these protocols in turn use IP to translate between traffic types. Each Internet protocol is optimized for a particular purpose, such as routing packets and transferring data from point to point.
+
+IPv4  was created in the early 1970s as an Internet Protocol that ran over the Department of Defense/US military, allowing secure messages between US Army "black sites". It offers a uniform solution to the problem of identifying hosts that should be allocated resources and to problems associated with timing and address inconsistencies. IPv4 addresses are 16-bit integers, and are generally 128 bits wide. For instance, an IP address can consist of eight characters (like e.g. 192.168.1.100). Each Internet service provider (ISP) has its own "Network Address Translation" (NAT) software.  It translates each IP address in the public Internet to its private.
+
+In the late 1990s, however, someone suggested an expansion of the IP protocol. IPv6  was created in 2000, with over 4 million people at present using it, to replace IPv4. From a security point of view, IPv6 is considered to be far more secure than IPv4 and runs with a small amount of overhead and no external dependency for critical services such as e-mail. IPv6 makes possible new functionality, such as distributing source addresses and addressing requests within multicast groups (i.e. broadcasts), delivering many more addresses in more contexts, and enabling network topologies to be defined in terms of many subnets instead of a single large address block.
+
+Internet routers route by breaking each IP address into a network number and a host number on that network. Each host on a network is assigned a number, and the router then puts those hosts together to form a single network that can be given a specific IP address. Routing protocols are clever: they figure out how to translate between network numbers and hosts, while keeping the IP address.
+
 \section{IPv4 Address Shortage}
 
 \end{document}
