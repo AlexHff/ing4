@@ -5,13 +5,14 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{float}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
 \begin{document}
 
-\title{IPv4 scarcity, migration from IPv4 to IPv6 and security aspects with IPv6}
+\title{The Exhaustion of IPv4 Address Space and the Transition to IPv6}
 
 \author{
   \IEEEauthorblockN{Alexander Hoffmann}
@@ -51,5 +52,30 @@ In the late 1990s, however, someone suggested an expansion of the IP protocol. I
 Internet routers route by breaking each IP address into a network number and a host number on that network. Each host on a network is assigned a number, and the router then puts those hosts together to form a single network that can be given a specific IP address. Routing protocols are clever: they figure out how to translate between network numbers and hosts, while keeping the IP address.
 
 \section{IPv4 Address Shortage}
+Internet growth is inextricably related to the expansion of IPv4 Address Space consumption. For nearly a decade, the Internet has grown rapidly across the world, and space limitations for the 32-bit IPv4 address have become severe. The increasing demand for IPv4 infrastructure will increase the cost of procuring and managing IPv4 address space, and give Internet Service Providers an incentive to procure and offer and offer more IPv4 capacity to their customers. Reports about the date at which the IPv4 address space will be exhausted vary. Fig \ref{summary} represents a summary of some reports.
+\begin{figure}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\rowcolor[HTML]{3166FF} 
+\multicolumn{1}{|c|}{\cellcolor[HTML]{3166FF}Document}                                                                              & Issued                                              & Author                                                  & IANA                                                & RIR                                                 \\ \hline
+\begin{tabular}[c]{@{}l@{}}The ISP Column\\ (How long have we \\ got?)\end{tabular}                                                 & \begin{tabular}[c]{@{}c@{}}Jul.\\ 2003\end{tabular} & \begin{tabular}[c]{@{}c@{}}Geoff \\ Huston\end{tabular} & 2021                                                & 2022                                                \\ \hline
+\begin{tabular}[c]{@{}l@{}}IPv4 Address Report\\ (Potaroo)\end{tabular}                                                             & \begin{tabular}[c]{@{}c@{}}Dec.\\ 2005\end{tabular} & \begin{tabular}[c]{@{}c@{}}Geoff \\ Huston\end{tabular} & \begin{tabular}[c]{@{}c@{}}Jan.\\ 2013\end{tabular} & \begin{tabular}[c]{@{}c@{}}Jan.\\ 2016\end{tabular} \\ \hline
+\begin{tabular}[c]{@{}l@{}}Internet Protocol\\ Journal \\ (A Pragmatic Report \\ on IPv4 Address \\ Space Consumption)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Sep.\\ 2005\end{tabular} & \begin{tabular}[c]{@{}c@{}}Tony\\ Hain\end{tabular}     & 2009                                                & 2016                                                \\ \hline
+\begin{tabular}[c]{@{}l@{}}The ISP Column\\ (Numerology)\end{tabular}                                                               & \begin{tabular}[c]{@{}c@{}}Nov.\\ 2005\end{tabular} & \begin{tabular}[c]{@{}c@{}}Geoff \\ Huston\end{tabular} & \begin{tabular}[c]{@{}c@{}}Jan.\\ 2012\end{tabular} & \begin{tabular}[c]{@{}c@{}}Mar.\\ 2013\end{tabular} \\ \hline
+\end{tabular}
+\end{table}
+\caption{Summary of IPv4 exhaustion reports}
+\label{summary}
+\end{figure}
+
+On 31 January 2011, the last two unreserved IANA /8 address blocks were allocated to APNIC according to RIR request procedures. This event can be observed on Fig \ref{ipv4-exhaust}.
+\begin{figure}[htbp]
+\centerline{\includegraphics[scale=0.25]{resources/ipv4-exhaust.png}}
+\caption{Exhaustion of IPv4 addresses since 1995}
+\label{ipv4-exhaust}
+\end{figure}
+The IPv4 address space shortage had already been expected as early as 1990. Still, Fig \ref{summary} shows how complex it was to predict the actual date of exhaustion.
 
 \end{document}
