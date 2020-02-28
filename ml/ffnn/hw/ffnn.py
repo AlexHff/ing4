@@ -46,5 +46,3 @@ FF = F.dot(w)
 # Apply activation function
 G = sigmoid(FF)
 print(G)
-
-print(sse(G, y))
