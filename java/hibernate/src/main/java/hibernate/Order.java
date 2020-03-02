@@ -5,69 +5,57 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import java.util.Date;
 import java.util.List;
 
 /**
- * The order entity class. Exercise 3.
- * <p>
- * <i>Under construction.</i>
+ * The order entity class.
  *
  * @author Jean-Michel Busca
  */
 @Entity
 @Table(name = "Orders")
-// "order" is a SQL keyword and therefore cannot be used as a table name,
-// hence the use of the @Table annotation to change the name of the table
 public class Order {
+    @Id
+    @GeneratedValue
+    private int id;
+    private Date date;
+    @OneToMany
+    private List<Product> products;
 
-  //
-  // INSTANCE FIELDS
-  //
-  @Id
-  @GeneratedValue
-  private int id;
-  private Date date;
-  @OneToMany
-  private List<Product> products;
+    public Order() {
+    }
 
-  //
-  // CONSTRUCTORS
-  //
+    public Order(Date date) {
+        this.date = date;
+    }
 
-  protected Order() {
-  }
+    public int getId() {
+        return id;
+    }
 
-  public Order(Date date) {
-    this.date = date;
-  }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-  //
-  // ACCESSORS AND MUTATORS
-  //
+    public Date getDate() {
+        return date;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public List<Product> getProducts() {
+        return products;
+    }
 
-  public Date getDate() {
-    return date;
-  }
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
-  public List<Product> getProducts() {
-    return products;
-  }
-
-  public void setProducts(List<Product> products) {
-    this.products = products;
-  }
+    @Override
+    public String toString() {
+        return "Order [date=" + date + ", id=" + id + ", products=" + products + "]";
+    }
 }

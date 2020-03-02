@@ -23,7 +23,7 @@ def rosen(x,y):
   f : float
       The value of the Rosenbrock function.
   """
-	return (1 - x)**2 + 100 * (y - x**2)**2
+  return (1 - x)**2 + 100 * (y - x**2)**2
 
 def grad(x,y):
   """
