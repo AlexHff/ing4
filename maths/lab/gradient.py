@@ -6,37 +6,87 @@ import random
 from mpl_toolkits.mplot3d import axes3d, Axes3D
 
 def rosen(x,y):
-	return (1 - x)**2 + 100 * (y - x**2)**2
+  """
+  The Rosenbrock function.
+
+  The function computed is:
+  (1 - x)**2 + 100 * (y - x**2)**2
+
+  Parameters
+  ----------
+  x : float
+  y : float
+      Points at which the Rosenbrock function is to be computed.
+
+  Returns
+  -------
+  f : float
+      The value of the Rosenbrock function.
+  """
+  return (1 - x)**2 + 100 * (y - x**2)**2
 
 def grad(x,y):
+  """
+  The derivative (i.e. gradient) of the Rosenbrock function.
+
+  Parameters
+  ----------
+  x : float
+  y : float
+      Points at which the gradient of the Rosenbrock function is to be computed.
+
+  Returns
+  -------
+  f : float
+      The value of the Rosenbrock function.
+  """
   g1 = -400*x*y + 400*x**3 + 2*x -2
   g2 = 200*y -200*x**2
   return np.array([g1,g2])
 
 def Gradient_Descent(Grad,x,y, gamma = 0.00125, epsilon=0.0001, nMax = 10000 ):
-  i = 0
-  iter_x, iter_y, iter_count = np.empty(0),np.empty(0), np.empty(0)
-  error = 10
-  X = np.array([x,y])
-  print(x,y)
+  """
+  Perform gradient descent on given samples.
 
-  while np.linalg.norm(error) > epsilon and i < nMax:
+  Parameters
+  ----------
+  Grad : {callable}, function
+  x : float
+  y : float
+  gamma : float
+          Learning rate
+  epsilon : float
+            Max allowed difference
+  nMax : int
+         Maximum number of iterations
+
+  Returns
+  -------
+  X : {array-like}, matrice containing results
+  x_i : {float}, last iteration of the algorithm for x
+  y_i : {float}, last iteration of the algorithm for y
+  """
+  i = 0
+  x_i, y_i = np.empty(0),np.empty(0)
+  error = 2*epsilon
+  X = np.array([x,y])
+  print(X)
+
+  while error > epsilon and i < nMax:
     i +=1
-    iter_x = np.append(iter_x,x)
-    iter_y = np.append(iter_y,y)
-    iter_count = np.append(iter_count ,i)   
+    x_i = np.append(x_i,x)
+    y_i = np.append(y_i,y)
     X_prev = X
     X = X - gamma * Grad(x,y)
-    error = X - X_prev
+    error = np.linalg.norm(X - X_prev)
     x,y = X[0], X[1]
-
   print(X)
-  return X, iter_x,iter_y, iter_count
+  return X, x_i,y_i
 
 if __name__ == '__main__':
   x_0 = random.uniform(-2.0, 2.0)
   y_0 = random.uniform(-2.0, 2.0)
-  root,iter_x,iter_y, iter_count = Gradient_Descent(grad,x_0,y_0)
+  root,iter_x,iter_y = Gradient_Descent(grad,x_0,y_0)
 
   x = np.linspace(-2,2,250)
   y = np.linspace(-1,3,250)
