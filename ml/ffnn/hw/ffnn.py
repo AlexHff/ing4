@@ -4,30 +4,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-class NeuralNetwork():
+class NeuralNetwork:
   def __init__(self):
-    np.random.seed(1)
-    self.weights = {}
-    self.num_layers = 1
+    self.w1 = np.random.randn()
+    self.w2 = np.random.randn()
+    self.b1 = np.random.randn()
+    self.b2 = np.random.randn()
 
-  def add_layer(self, shape):
-    self.weights[self.num_layers] = np.vstack((2 * np.random.random(shape) - 1, 2 * np.random.random((1, shape[1])) - 1))
-    self.num_layers += 1
-
-  def sigmoid(self, x):
+  def sigmoid(self,x):
     return 1.0 / (1.0 + np.exp(-x))
 
-  def predict(self, data):
-    for layer in range(1, self.num_layers+1):
-      data = np.dot(data, self.weights[layer-1][:, :-1]) + self.weights[layer-1][:, -1]
-      data = self.sigmoid(data)
-    return data
-
-  def forward_propagate(self, data):
-    for layer in range(2, self.num_layers+1):
-      data = np.dot(data.T, self.weights[layer-1][:-1, :]) + self.weights[layer-1][-1, :].T
-      data = self.sigmoid(data).T
-    return data
+  def grad_sigmoid(self, x):
+    return np.exp(-x) / np.power(1.0 + np.exp(-1), 2)
 
 if __name__ == '__main__':
   # Load data from file
@@ -40,9 +28,12 @@ if __name__ == '__main__':
   plt.scatter(X[:,1],X[:,2])
 
   # Actual output
-  Y = np.array(data[:,2])
+  Y = data[:,2]
+
+  nn = NeuralNetwork()
 
   plt.show()
+
   """
   # Initialize parameters
   v = np.random.rand(3,3)
