@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.12.22)  28 FEB 2020 09:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.12.22)  3 MAR 2020 11:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -469,13 +469,18 @@ e
 ))
 LaTeX Font Info:    External font `cmex7' loaded for size
 (Font)              <7> on input line 15.
-<resources/1-1.png, id=1, 667.49374pt x 767.86874pt>
+<resources/1-1.png, id=1, 661.47125pt x 150.5625pt>
 File: resources/1-1.png Graphic file (type png)
 <use resources/1-1.png>
 Package pdftex.def Info: resources/1-1.png  used on input line 19.
-(pdftex.def)             Requested size: 400.49934pt x 460.7248pt.
+(pdftex.def)             Requested size: 396.8858pt x 90.33818pt.
 
-Overfull \hbox (10.49934pt too wide) in paragraph at lines 18--20
+Underfull \hbox (badness 10000) in paragraph at lines 18--20
+
+ []
+
+
+Overfull \hbox (6.8858pt too wide) in paragraph at lines 18--20
 [] 
  []
 
@@ -484,15 +489,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--20
 
  []
 
-[1
+<resources/1-2.png, id=3, 582.175pt x 130.4875pt>
+File: resources/1-2.png Graphic file (type png)
+<use resources/1-2.png>
+Package pdftex.def Info: resources/1-2.png  used on input line 22.
+(pdftex.def)             Requested size: 407.51973pt x 91.3406pt.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-File: resources/1-1.png Graphic file (type png)
-<use resources/1-1.png>
-Package pdftex.def Info: resources/1-1.png  used on input line 22.
-(pdftex.def)             Requested size: 400.49934pt x 460.7248pt.
+Underfull \hbox (badness 10000) in paragraph at lines 21--23
 
-Overfull \hbox (10.49934pt too wide) in paragraph at lines 21--23
+ []
+
+
+Overfull \hbox (17.51973pt too wide) in paragraph at lines 21--23
 [] 
  []
 
@@ -501,24 +509,115 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--23
 
  []
 
-[2 <./resources/1-1.png>] [3] (./2020-05-03-SRI-Gr02-HOFFMANN.aux) ) 
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--25
+
+ []
+
+<resources/1-4.png, id=4, 370.38374pt x 20.075pt>
+File: resources/1-4.png Graphic file (type png)
+<use resources/1-4.png>
+Package pdftex.def Info: resources/1-4.png  used on input line 30.
+(pdftex.def)             Requested size: 259.26685pt x 14.05238pt.
+<resources/1-4-2.png, id=5, 301.125pt x 22.0825pt>
+File: resources/1-4-2.png Graphic file (type png)
+<use resources/1-4-2.png>
+Package pdftex.def Info: resources/1-4-2.png  used on input line 32.
+(pdftex.def)             Requested size: 240.90031pt x 17.666pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--33
+
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./resources/1-1.png> <./re
+sources/1-2.png>]
+<resources/1-5.png, id=17, 804.00375pt x 514.92375pt>
+File: resources/1-5.png Graphic file (type png)
+<use resources/1-5.png>
+Package pdftex.def Info: resources/1-5.png  used on input line 45.
+(pdftex.def)             Requested size: 402.0009pt x 257.46124pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 44--47
+
+ []
+
+
+Overfull \hbox (12.0009pt too wide) in paragraph at lines 44--47
+[] 
+ []
+
+<resources/1-7.png, id=18, 638.385pt x 116.435pt>
+File: resources/1-7.png Graphic file (type png)
+<use resources/1-7.png>
+Package pdftex.def Info: resources/1-7.png  used on input line 49.
+(pdftex.def)             Requested size: 383.03394pt x 69.86153pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--50
+
+ []
+
+[2 <./resources/1-4.png> <./resources/1-4-2.png> <./resources/1-5.png>]
+<resources/1-8.png, id=25, 716.6775pt x 102.3825pt>
+File: resources/1-8.png Graphic file (type png)
+<use resources/1-8.png>
+Package pdftex.def Info: resources/1-8.png  used on input line 52.
+(pdftex.def)             Requested size: 430.00983pt x 61.42996pt.
+<resources/1-8-1.png, id=26, 714.67pt x 103.38625pt>
+File: resources/1-8-1.png Graphic file (type png)
+<use resources/1-8-1.png>
+Package pdftex.def Info: resources/1-8-1.png  used on input line 54.
+(pdftex.def)             Requested size: 428.8053pt x 62.03221pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--55
+
+ []
+
+
+Overfull \hbox (40.00983pt too wide) in paragraph at lines 51--55
+[] 
+ []
+
+
+Overfull \hbox (247.12212pt too wide) in paragraph at lines 51--55
+\OT1/cmr/m/n/12 Now let's ob-serve the ping from the host. [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--55
+
+ []
+
+[3 <./resources/1-7.png> <./resources/1-8.png> <./resources/1-8-1.png>]
+(./2020-05-03-SRI-Gr02-HOFFMANN.aux) ) 
 Here is how much of TeX's memory you used:
- 1829 strings out of 492982
- 26155 string characters out of 6134895
- 80542 words of memory out of 5000000
- 5384 multiletter control sequences out of 15000+600000
+ 1864 strings out of 492982
+ 26833 string characters out of 6134895
+ 81542 words of memory out of 5000000
+ 5412 multiletter control sequences out of 15000+600000
  6683 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,6n,25p,295b,187s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on 2020-05-03-SRI-Gr02-HOFFMANN.pdf (3 pages, 156840 bytes).
+</usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmtt12.pfb>
+Output written on 2020-05-03-SRI-Gr02-HOFFMANN.pdf (3 pages, 151481 bytes).
 PDF statistics:
- 33 PDF objects out of 1000 (max. 8388607)
+ 47 PDF objects out of 1000 (max. 8388607)
  21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
