@@ -52,6 +52,39 @@ We can observe that the VM broadcasts a DHCP Request. The DHCP server then sends
 \includegraphics[scale=0.6]{resources/1-8.png}\\
 Now let's observe the ping from the host.\\~\\
 \includegraphics[scale=0.6]{resources/1-8-1.png}\\
-The packets are simingly the same except that the header is slightly different.
+The packets are simingly the same except that the header is slightly different.\\
+
+\section{Host-only mode}
+\textbf{9.} The IP address of the host has not changed. See question 1.\\ 
+
+\textbf{10.} Now let's take a look at the IP configuration of the VM.\\~\\
+\includegraphics[scale=0.7]{resources/2-9.png}\\
+The IP address of the network is 192.168.56.1/24. It is a private network linked to a virtual interface created by VirtualBox.\\
+
+\textbf{11.} To find out the IP address of the DHCP server, we use the same command as before. This time, the DHCP server is 192.168.56.2. Note that the IP address of the interface on the host machine is 192.168.56.1.\\~\\
+\includegraphics[scale=0.6]{resources/q11.png}\\
+
+\section{Bridged mode}
+\textbf{13.} For this section, we have changed location. Therefore, the IP address is not the same as previously.\\~\\
+\includegraphics[scale=0.6]{resources/13.png}\\
+
+\textbf{14.} Now that we are in bridged mode, the VM is directly connected to the same network as the host.\\~\\
+\includegraphics[scale=0.7]{resources/14.png}\\
+
+\textbf{15.} Bridged mode replicates another node on the physical network and the VM will receive it's own IP address if DHCP is enabled in the network. It can be accessed by all computers in your host network.\\
+
+\textbf{16.} To find the DHCP, use:
+\begin{verbatim}
+sudo grep -R "DHCPOFFER" /var/log/syslog
+\end{verbatim}
+\includegraphics[scale=0.6]{resources/15.png}\\
+The last line corresponds to the DHCP offer from the server. The IP address of the server is 10.5.192.1.\\
+
+\textbf{17.} To request a new lease from the DHCP server, we use:
+\begin{verbatim}
+sudo dhclient <interface>
+\end{verbatim}
+If we apply it to the VM, here is the traffic captured by wireshark:\\~\\
+\includegraphics[scale=0.6]{resources/16.png}\\
 
 \end{document}
