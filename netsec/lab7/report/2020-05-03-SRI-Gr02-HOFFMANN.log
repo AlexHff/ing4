@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.12.22)  4 MAR 2020 11:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.2.20)  4 MAR 2020 19:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -716,39 +716,62 @@ File: resources/16.png Graphic file (type png)
 Package pdftex.def Info: resources/16.png  used on input line 88.
 (pdftex.def)             Requested size: 400.49934pt x 77.69083pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
+Underfull \hbox (badness 10000) in paragraph at lines 87--90
 
  []
 
 
-Overfull \hbox (10.49934pt too wide) in paragraph at lines 87--89
+Overfull \hbox (10.49934pt too wide) in paragraph at lines 87--90
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--89
+Underfull \hbox (badness 10000) in paragraph at lines 87--90
 
  []
 
 [5 <./resources/14.png> <./resources/15.png> <./resources/16.png>]
-(./2020-05-03-SRI-Gr02-HOFFMANN.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+
+ []
+
+File: resources/16.png Graphic file (type png)
+<use resources/16.png>
+Package pdftex.def Info: resources/16.png  used on input line 97.
+(pdftex.def)             Requested size: 400.49934pt x 77.69083pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+
+ []
+
+
+Overfull \hbox (10.49934pt too wide) in paragraph at lines 96--98
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+
+ []
+
+[6] (./2020-05-03-SRI-Gr02-HOFFMANN.aux) ) 
 Here is how much of TeX's memory you used:
  1894 strings out of 492982
- 27377 string characters out of 6134895
- 81542 words of memory out of 5000000
+ 27377 string characters out of 6134896
+ 81541 words of memory out of 5000000
  5436 multiletter control sequences out of 15000+600000
  6683 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,25p,295b,187s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmtt12.pfb>
-Output written on 2020-05-03-SRI-Gr02-HOFFMANN.pdf (5 pages, 226639 bytes).
+ 41i,6n,25p,522b,187s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmtt12.pfb>
+Output written on 2020-05-03-SRI-Gr02-HOFFMANN.pdf (6 pages, 228765 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
- 25 compressed objects within 1 object stream
+ 68 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

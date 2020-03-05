@@ -31,7 +31,7 @@ y_train = np.array([to_vect(y) for y in y_train])
 x_train = a[:,:2]
 x_train = x_train.astype(float)
 x_train = [np.reshape(x, (1, 2)) for x in x_train]
-print(x_train)
+print(y_train)
 
 W1 = np.random.rand(2, 5)
 B1 = np.random.rand(1, 5)

@@ -86,5 +86,16 @@ sudo dhclient <interface>
 \end{verbatim}
 If we apply it to the VM, here is the traffic captured by wireshark:\\~\\
 \includegraphics[scale=0.6]{resources/16.png}\\
+In this case, we requested a new lease and the DHCP responded with the same IP address. Suppose we would leave and come back the next day, the DHCP would send us another IP address because the one we currently have might already have been taken by another device on the network.\\
+
+\textbf{18.} 
+Typically, when a router goes to establish an IP address for a client computer it is given the initial IP address of 255.255.255.255 or "static." With DHCP, that initial IP address is assigned to a computer that is now configured to use that IP address as its primary address.
+
+Using a DHCP server allows you to specify how to address your network in the future. If the DHCP server isn't configured to allocate any addresses to your network, the computer will ask the DHCP server for a new address periodically. In the future, whenever your network changes and you switch over to using DHCP, it will automatically get assigned a new IP address.\\
+
+\textbf{19.} The same applies for the virtual machine. In bridge mode, both the host machine and the VM are individual devices since virtualbox simulates a network interface for the VM.\\~\\
+\includegraphics[scale=0.6]{resources/16.png}\\
+
+\textbf{20.} A DHCP lease is a temporary assignment of an IP address to a device on the network. When using DHCP to manage a pool of IP addresses, each client served on the network is only “renting” its IP address. Thus, IP addresses managed by a DHCP server are only assigned for a limited period of time. When there is no more use for an IP address, it is released from the DHCP lease and may be assigned by another DHCP server without causing any further problems.
 
 \end{document}
