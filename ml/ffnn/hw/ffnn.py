@@ -37,6 +37,8 @@ class NeuralNetwork:
         err = err + j
         err = err / len(training_input)
       plt.scatter(i, err)
+    print(self.w1, self.w2)
+    print(self.b1, self.b2)
 
   def test(self, x1, x2):
     arr = np.array([x1, x2])
