@@ -39,9 +39,9 @@ def gss(f, a, b, tol=1e-5):
 			yd = f(d)
 
 	if yc < yd:
-		return (a, d)
+		return (a + b) / 2
 	else:
-		return (c, b)
+		return (c + b) / 2
 
 if __name__ == '__main__':
   print(gss(fct,1,5))

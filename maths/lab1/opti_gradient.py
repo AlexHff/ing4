@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
 from mpl_toolkits.mplot3d import axes3d, Axes3D
+from scipy.optimize import minimize_scalar
 
 def rosen(x,y):
   """
@@ -82,6 +83,27 @@ def gradient_descent(grad_rose_rosenn,x,y, alpha = 0.00125, epsilon=0.0001, nMax
     x, y = X[0], X[1]
   print(X)
   return X, x_i, y_i
+
+def gss(f, a, b, epsilon):
+  p = (np.sqrt(5) - 1) / 2
+  x_min = p * a + (1 - p) * b
+  x_max = a + b - x_min
+  v_min = f(x_min)
+  v_max = f(x_max)
+  while b - a >= epsilon:
+    if v_min <= v_max:
+      b = x_max
+      x_max = x_min
+      x_min = a + b - x_max
+      v_max = v_min
+      v_min = f(x_min)
+    else:
+      a = x_min
+      x_min - x_max
+      x_max = a + b - x_min
+      v_min = v_max
+      v_max = f(x_max)
+  return (a + b) / 2
 
 if __name__ == '__main__':
   x_0 = random.uniform(-2.0, 2.0)
