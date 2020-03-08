@@ -88,6 +88,7 @@ if __name__ == '__main__':
   y_0 = random.uniform(-2.0, 2.0)
   root,iter_x,iter_y = gradient_descent(grad_rosen,x_0,y_0)
 
+  # Code below is for plotting
   x = np.linspace(-2,2,250)
   y = np.linspace(-2,3,250)
   X, Y = np.meshgrid(x, y)
