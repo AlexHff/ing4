@@ -5,45 +5,6 @@ import numpy as np
 import random
 from mpl_toolkits.mplot3d import axes3d, Axes3D
 
-def rosen(x,y):
-  """
-  The Rosenbrock function.
-
-  The function computed is:
-  (1 - x)**2 + 100 * (y - x**2)**2
-
-  Parameters
-  ----------
-  x : float
-  y : float
-      Points at which the Rosenbrock function is to be computed.
-
-  Returns
-  -------
-  f : float
-      The value of the Rosenbrock function.
-  """
-  return (1 - x)**2 + 100 * (y - x**2)**2
-
-def grad_rosen(x, y):
-  """
-  The derivative (i.e. gradient) of the Rosenbrock function.
-
-  Parameters
-  ----------
-  x : float
-  y : float
-      Points at which the gradient of the Rosenbrock function is to be computed.
-
-  Returns
-  -------
-  f : float
-      The value of the Rosenbrock function.
-  """
-  g1 = -400 * x * y + 400 * x**3 + 2 * x -2
-  g2 = 200 * y - 200 * x**2
-  return np.array([g1,g2])
-
 def gradient_descent(grad_rosen, x, y, alpha = 0.00125, epsilon=0.0001, nMax = 10000 ):
   """
   Perform gradient descent on given samples.
@@ -67,18 +28,15 @@ def gradient_descent(grad_rosen, x, y, alpha = 0.00125, epsilon=0.0001, nMax = 1
   y_i : {float}, last iteration of the algorithm for y
   """
   i = 0
-  x_i, y_i = np.empty(0), np.empty(0)
+  x_i = np.empty(0)
   error = 2*epsilon
-  X = np.array([x,y])
-  print(X)
 
   while error > epsilon and i < nMax:
     i += 1
     x_i = np.append(x_i,x)
-    y_i = np.append(y_i,y)
-    X_prev = X
-    X = X - alpha * grad_rosen(x,y)
-    error = np.linalg.norm(X - X_prev)
+    x_prev = x
+    x = x - alpha * grad(x)
+    error = np.linalg.norm(x - x_prev)
     x, y = X[0], X[1]
   print(X)
   return X, x_i, y_i
