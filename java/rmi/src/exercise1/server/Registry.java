@@ -12,28 +12,25 @@ import java.rmi.registry.LocateRegistry;
  */
 public class Registry {
 
-  //
-  // CONSTANTS
-  //
-  // the port the registry is listening on
-  public static final int REGISTRY_PORT = 1099; // 1099 = default value
+    //
+    // CONSTANTS
+    //
+    // the port the registry is listening on
+    public static final int REGISTRY_PORT = 1099; // 1099 = default value
 
-  //
-  // MAIN
-  //
-  public static synchronized void main(String[] args) throws Exception {
+    //
+    // MAIN
+    //
+    public static synchronized void main(String[] args) throws Exception {
 
-    System.out
-            .println("registry: running on host " + InetAddress.getLocalHost());
+        System.out.println("registry: running on host " + InetAddress.getLocalHost());
 
-    // create the registry on the local machine, on the default port number
-    LocateRegistry.createRegistry(REGISTRY_PORT);
-    System.out.println("registry: listening on port " + REGISTRY_PORT);
+        // create the registry on the local machine, on the default port number
+        LocateRegistry.createRegistry(REGISTRY_PORT);
+        System.out.println("registry: listening on port " + REGISTRY_PORT);
 
-    // block forever
-    Registry.class.wait();
-    System.out.println("registry: exiting (should not happen)");
-
-  }
-
+        // block forever
+        Registry.class.wait();
+        System.out.println("registry: exiting (should not happen)");
+    }
 }
