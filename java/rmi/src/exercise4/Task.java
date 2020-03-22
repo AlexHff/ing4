@@ -7,7 +7,5 @@ package exercise4;
  *
  */
 public interface Task<T> {
-
-  public T execute();
-
+    public T execute();
 }

@@ -2,24 +2,40 @@
 
 import numpy as np
 
-def uzawa(A, b, h, X0, lambda0):
+def uzawa(A, b, C, f, rho, tol=0.00001, maxIter=10000):
+  n = len(b)
+  X = np.zeros(n)
   i = 0
-  eps = 10
-  while np.all(eps > 0.0000001) and i < 1000000:
-    lambda1 = np.maximum(lambda0 + 4 * (h @ X0), np.zeros(3))
-    X1 = np.linalg.inv(A) @ (b.transpose() - (h.transpose() @ lambda1).transpose()).transpose()
-    lamdba0 = lambda1.transpose()
-    eps = abs(X1.transpose() - X0)
-    X0 = X1.transpose()
-    i+=1
-  return X1
+  err = 2 * tol
+  lambda0 = np.zeros(n)
+  while i < maxIter and err > tol:
+    X = np.linalg.inv(A) * (b-C.transpose()*lambda0)
+    lambda0 = lambda0 + rho * (C*X-f)
+    err = 1/np.linalg.norm(C*X-f)
+    i += 1
+  return X
 
 if __name__ == '__main__':
-  N = np.array([2,2,2])
-  h = 1 / (N + 1)
-  A = np.array([[2,-1,0],
-                [-1,2,-1],
-                [0,-1,2]])
-  b = np.array([-8,-8,-8])
-  r = uzawa(A, b, h, np.array([1,1,1]), np.array([1,1,1]))
-  print(r)
+  n = 4
+  h = 1 / (n + 1)
+  A = np.zeros((n,n))
+  for i in range(0,n-1):
+    A[i][i] = 2
+    A[i][i+1] = -1
+    A[i+1][i] = -1
+  A[n-1][n-1] = 2
+  A = 1/h**2 * A
+  b = -8 * np.ones(n)
+
+  t = np.zeros(n)
+  for i in range(0,n):
+    t[i] = i * h
+
+  g = np.zeros(n)
+  for i in range(0,n):
+    g[i] = -1 + max(0, 0.565-10*(t[i]-0.4)**2)
+  f = -g
+
+  C = -np.identity(n)
+  x = uzawa(A,b,C,f,1000)
+  print(x)
