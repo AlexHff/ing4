@@ -1,5 +1,8 @@
 package exercise4;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 /**
  * Interface of a generic computer server.
  *
@@ -7,6 +10,6 @@ package exercise4;
  * and returns the value output by the task.
  *
  */
-public interface Computer {
-    public <T> T execute(Task<T> task);
+public interface Computer extends Remote {
+    public <T> T execute(Task<T> task) throws RemoteException;
 }
