@@ -40,5 +40,59 @@ To prove that the VM is connected to the internet, we ping the \texttt{google.co
 \end{center}
 
 \textbf{2.} 
+Set the IP addresses of the other devices in the network using:
+\begin{verbatim}
+ifconfig <interface> <ip-address> netmask <netmask> up
+\end{verbatim}
+To add a default gateway to a network interface, use:
+\begin{verbatim}
+route add default gw <ip-address>
+\end{verbatim}
+\begin{table}[H]
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{VM}} & \multicolumn{1}{c|}{\textbf{IP Address}} \\ \hline
+PC1                               & 192.168.11.2                             \\ \hline
+PC2                               & 192.168.22.2                             \\ \hline
+Server                            & 192.168.11.3                             \\ \hline
+\end{tabular}
+\end{table}
+
+\section{CA ROOT}
+\textbf{1.} Connect to PC2.\\
+
+\textbf{2.} Here is a screenshot of the file structure.
+\begin{center}
+\includegraphics[scale=0.7]{resources/2-2-1.png}\\
+\end{center}
+
+\textbf{3.} To generate a private RSA key, use:
+\begin{verbatim}
+openssl genrsa -out privcaroot.key -des3 2048
+\end{verbatim}
+
+\textbf{4.} To create a self-signed certificate:
+\begin{verbatim}
+openssl req -new -x509 -days 365 -key private/privcaroot.key -out
+certs/certcaroot.crt -config ./openssl.cnf -extensions CA_ROOT
+\end{verbatim}
+\begin{center}
+\includegraphics[scale=0.7]{resources/2-2-4.png}\\
+\end{center}
+\begin{center}
+\includegraphics[scale=0.7]{resources/2-2-5.png}\\
+\end{center}
+
+\section{CA LAB}
+\textbf{3.} Generate private RSA key.
+\begin{verbatim}
+openssl genrsa -des3 -out private/privcalab.key 2048
+\end{verbatim}
+
+\textbf{4.} Generate certificate.
+\begin{verbatim}
+openssl req -new -key private/privcalab.key -out certs/certcalab.csr
+-config ./openssl.cnf
+\end{verbatim}
 
 \end{document}
