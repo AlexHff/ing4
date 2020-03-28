@@ -1,20 +1,19 @@
 package exercise4.server;
 
-import java.net.InetAddress;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import exercise4.Computer;
+
 import static exercise4.server.Registry.REGISTRY_PORT;
 
 public class Server {
-    private static final String SERVICE_NAME = "Task";
+    private static final String SERVICE_NAME = "Computer";
 
     public static void main(String[] args) throws Exception {
-        System.out.println("server: running on host " + InetAddress.getLocalHost());
-
-        TaskManager manager = new TaskManager();
-        TaskManager stub = (TaskManager) UnicastRemoteObject.exportObject(manager, 0);
+        Computer engine = new ComputerEngine();
+        Computer stub = (Computer) UnicastRemoteObject.exportObject(engine, 0);
 
         Registry registry = LocateRegistry.getRegistry(REGISTRY_PORT);
         registry.rebind(SERVICE_NAME, stub);
