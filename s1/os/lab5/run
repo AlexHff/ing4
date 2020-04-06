@@ -1,0 +1,7 @@
+#!/bin/bash
+gcc sem.c -o sem -pthread
+gcc race.c -o race -pthread
+gcc deadlock.c -o deadlock -pthread
+gcc run3.c -o run3 -pthread
+gcc calc.c -o calc -pthread
+./calc

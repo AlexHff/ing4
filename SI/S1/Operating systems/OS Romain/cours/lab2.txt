@@ -1,0 +1,8 @@
+1.
+	1- i is a "local" value and *ptr is a shared value, since *ptr is the only one of the 2 values to be located in the shared memory space.
+	2- yes.
+	3- no doing that.
+
+2. Parallel computing
+	
+	1- 

@@ -1,0 +1,9 @@
+information:
+	
+	- thread (of execution):
+		- has the goal of sharing data extensively/easily/totally
+		- every execution has access to all ressources
+		- 
+	- between threads and processes: threads share information between them more easily than processes
+	- processes are different contexts of execution whereas threads are all running in the same context of exe.
+	- 

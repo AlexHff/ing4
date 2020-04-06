@@ -1,0 +1,22 @@
+christian.khoury@ece.fr
+
+general info:
+	- a lab to do at every class
+
+operating systems:
+	- goal is to know how OS operate.
+	- a computer is composed of it's hardware (cpu, gpu, ram, rom...) and to use it efficiently --> OS
+	- we're gonna study how the OS manages the resources, in the form of 4 parts:
+		- process management
+		- volatile memory management
+		- hard memory management --> file systems
+		- I/O managing
+	- next we'll learn practical things:
+		- system calls
+		- system programming
+
+Process management:
+	- definitions:
+		- program/executable: in an executable you'll find the code, the GLOBAL & CONSTANT data, 
+		- process --> instance of a program that is currently executed
+		- 

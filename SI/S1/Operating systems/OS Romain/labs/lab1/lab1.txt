@@ -1,0 +1,34 @@
+1. compiling under Linux
+
+	3- The -g option, adds the symbols for debugging to the program.
+	4- There is a help command within gdb. You can use it by typing "help" within the gdb interface. There also are other types of commands, which are listed within the "help" interface.
+
+2. Creating and Running a Process - fork
+
+	1- Okay.
+	2- After a fork call, which is done by the parent process, there are two running processes, one parent and one child. They are differenciated by their ID and their allocated memory spaces.
+	3- File is 2forkq3.c
+	4- Data is not shared between parent and child, since the two processes are located in different memory spaces.
+		the following program demonstrates that:
+		int i = 5;
+		if (fork() == 0) {
+			// I’m the child
+			i++;
+		} else {
+			// I’m the parent
+			sleep(3); // sleep for 3 seconds
+			printf("%d\n", i); // here the value of i displayed will be 5, because we are working in the parent process and i has only been modified in the child process!
+		}
+	5- File is 2forkq5.c
+
+3. Creating and Running a Process - exec
+
+	1- Done.
+	2- Code looks like this: 	
+		char*param [ ] ={”firefox”,”index.html”,NULL};
+		execv ( ”/usr/bin/firefox”,param) ;
+
+		char* args[] = {"firefox",NULL};
+		execvp(args[],args);
+	3- Data is shared but since that when exec is called, the "child process" takes over, there isn't really any data to share?
+	4- 

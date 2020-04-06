@@ -1,0 +1,5 @@
+#!/bin/bash
+gcc calcp.c -o calcp
+/usr/bin/time -v ./calcp -R
+gcc calct.c -o calct -pthread
+/usr/bin/time -v ./calct -R

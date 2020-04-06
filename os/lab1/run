@@ -1,7 +1,0 @@
-#!/bin/bash
-#gcc myfork.c -o myfork
-#./myfork
-#gcc myexec.c -o myexec
-#./myexec
-gcc mysystem.c -o mysystem
-./mysystem

@@ -1,0 +1,34 @@
+we studied FCFS and SJF --> see material on share drive
+
+Today we study algorithms that could manage interactive processes:
+
+Time sharing algorithm --> Round Robin:
+	- time allocated to do a part of each task --> quantum (usually ~10ms)
+	- using a too big quantum time with small exec time process leads to a FCFS
+
+The best way to do is to combine multiple algorithms!
+	- to do this we will be using multiple ready queues --> each one subjected to a != algo
+		- u can use as many RQ as u want. (just increase quantum by a little each time)
+	- you then apply a priority rule between ready queues (here we consider 1 high priority queue--> round robin with low quantum, and FCFS)
+	- also apply the principle of aging (priority grows over time) so you cannot have starvation
+	- to choose in which ready queue a process goes:
+		- first, to be safe it will consider it has a big priority and put it in high P queue
+		- then during first quantum it will check if process is interactive or not
+			- if not it'll push it back into second queue
+			- if it is it'll push it back into high P queue
+		- when there are no more processes in highP it exec the FCFS queue while waiting for another process to be pushed into highP queue
+		- when a process gets unblocked
+			- it premempts the process in the FCFS queue that was being exec
+			- pushes the process into highP ready Q
+			- executes it.
+		- if u try to use another highly interactive process at the same time it will also be pushed into the ready queue.
+			- since quantum is really small (~10ms) it'll look like it executed instantly
+			- until quantum ~15 20ms, we don't see it
+		- if a process that was not interactive gets interupted after low exec time it can fo "up" in queues 
+
+context switches
+	- threads use less memory than processes
+		- you can see it when a context switch happens
+			- bc a process replaces the whole memory table sin  memeory management
+			- a thread belongs to the same process!
+			- higher cpu usage ratio for threads

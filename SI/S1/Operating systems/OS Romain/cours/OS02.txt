@@ -1,0 +1,15 @@
+- life cycle of a process:
+	- it is first CREATED (usually by a fork() call)
+	- then it is READY
+	- then it is RUNNING
+	- it can be SUSPENDED and rerun at any time
+	- when finished it is TERMINATED.
+	- there is also the BLOCKED state which means it is waiting for input. When input is given process goes back in ready queue.
+	
+- sheduling:
+	- there is an infinite number of scheduling algorithms, you can even create your owns
+	- 
+
+- lab2 tips:
+	- IPC = Inter-Process Communication
+	- 

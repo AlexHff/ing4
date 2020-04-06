@@ -1,0 +1,3 @@
+#!/bin/bash
+gcc bigcalculator.c -o mybigcalc
+./mybigcalc

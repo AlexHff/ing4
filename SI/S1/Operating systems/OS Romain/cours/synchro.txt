@@ -1,0 +1,13 @@
+the question is: How to sycnhronize multiple operations?
+
+We have problems:
+	
+	1. we have shared data and 2 process require access to it.
+		- modifying data concurrently it provoques a race condition
+		- how to prevent this problem? --> enforce mutual exclusion!
+		- tools we have at hand to do that:
+			-  make a waiting list
+			- acquire next person on list whenever a resource is available
+			- that is called a semaphore
+		- another solution would be:
+			- 

@@ -1,0 +1,16 @@
+1. File descriptors:
+	- cat function concatenates files and print on the standard output.
+	- > is used to change the standard output to text2 --> input > output
+	- if no input is provided, terminal will wait for user to input smth.
+	- dup2 is a function used to duplicate a file descriptor int dup2(int old, int new); --> 
+	
+	1.2.3.4. see file fileDescriptors.c
+
+2. Pipes
+
+	- ps --> report a snapshot of the current process
+		- a --> for all users
+		- u --> display process user/owner
+		- x --> also show processes not attached to a terminal
+		- more --> display results on more than one screen
+	- | is a pipe --> allows you to make 2 processes exchange information!

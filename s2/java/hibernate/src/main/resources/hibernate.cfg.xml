@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!-- Exercise 1.1 -->
+    <session-factory>
+        <property name="connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+        <property name="connection.url">
+            jdbc:mysql://localhost/test
+        </property>
+        <property name="connection.username">
+            root
+        </property>
+        <property name="connection.password">
+            <!-- password='' -->
+        </property>
+
+        <!-- At startup, Hibernate will automatically create and/or update the database schema
+        with respect to the entity classes.
+        If the current database schema matches the entity classes, Hibernate will not modify
+        the database schema and it will preserve the current database _instance_.
+        -->
+        <property name="hbm2ddl.auto">update</property>
+    </session-factory>
+</hibernate-configuration>

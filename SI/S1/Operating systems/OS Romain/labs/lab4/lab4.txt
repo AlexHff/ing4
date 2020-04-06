@@ -1,0 +1,4 @@
+if you want to change 1 standard input or output, you have to change the reference to somth that had already been verified by the system.
+	- you'll need to use the dup2 function
+	- ps is used to interact with standard output
+	- 
